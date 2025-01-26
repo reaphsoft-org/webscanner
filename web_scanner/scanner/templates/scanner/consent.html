@@ -1,0 +1,18 @@
+<!-- scanner/templates/scanner/consent.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consent Page</title>
+</head>
+<body>
+    <h1>Warning</h1>
+    <p>You must have explicit authorization to scan or brute force any website. Do you have the necessary permission?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" name="yes">Yes, I have permission</button>
+        <button type="submit" name="no">No, I don't</button>
+    </form>
+</body>
+</html>
