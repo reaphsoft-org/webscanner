@@ -2,9 +2,11 @@
 
 # Create your views here.
 
+import csv
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -55,6 +57,9 @@ def scanner(request):
                     {'username': 'guest', 'role': 'Guest', 'server': 'Linux'},
                 ]
 
+            request.session['results'] = vulnerabilities
+            request.session.modified = True
+
             return render(request, 'scanner/results.html', {
                 'url': url,
                 'vulnerabilities': vulnerabilities or ["No vulnerabilities detected"],
@@ -74,3 +79,25 @@ def consent_page(request):
         else:
             messages.warning(request, "You must confirm permission to proceed.")
     return render(request, 'scanner/consent.html')
+
+def download_csv(request):
+    """
+
+    """
+
+    response = HttpResponse(
+        content_type="text/csv",
+        headers={"Content-Disposition": 'attachment; filename="WebScanResult.csv"'},
+    )
+
+    writer = csv.writer(response)
+    writer.writerow(["S/N", "Vulnerability", "Severity"])
+    vulnerabilities = request.session.get('results', [])
+    for i, v in enumerate(vulnerabilities):
+        writer.writerow([f"{i+1}", v, "NA"])
+
+    return response
+
+def send_via_email(request):
+    """
+    """
