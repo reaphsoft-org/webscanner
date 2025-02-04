@@ -4,39 +4,165 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scan Results</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        p {
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        ul {
+            text-align: left;
+            padding-left: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background: #fff;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .btn-csv {
+            background: #28a745;
+            color: white;
+            border: 2px solid #218838;
+        }
+        .btn-csv:hover {
+            background: #218838;
+            box-shadow: 0px 5px 8px rgba(40, 167, 69, 0.4);
+        }
+        .btn-email {
+            background: #007bff;
+            color: white;
+            border: 2px solid #0056b3;
+        }
+        .btn-email:hover {
+            background: #0056b3;
+            box-shadow: 0px 5px 8px rgba(0, 123, 255, 0.4);
+        }
+        .btn i {
+            font-size: 18px;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            color: #fff;
+            background: #6c757d;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+        .back-link:hover {
+            background: #5a6268;
+        }
+    </style>
 </head>
 <body>
-    <h1>Scan Results</h1>
-    {% if error %}
-        <p style="color: red;">{{ error }}</p>
-    {% else %}
-        <p>Scanned URL: {{ url }}</p>
-        <h2>Discovered Vulnerabilities:</h2>
-        <ul>
-            {% for vulnerability in vulnerabilities %}
-                <li>{{ vulnerability }}</li>
-            {% endfor %}
-        </ul>
-        <h2>Discovered Users:</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Role</th>
-                    <th>Server</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in users %}
-                    <tr>
-                        <td>{{ user.username }}</td>
-                        <td>{{ user.role }}</td>
-                        <td>{{ user.server }}</td>
-                    </tr>
+
+    <div class="container">
+        <h1>Scan Results</h1>
+        
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% else %}
+            <p><strong>Scanned URL:</strong> {{ url }}</p>
+            <h2>Discovered Vulnerabilities:</h2>
+            <ul>
+                {% for vulnerability in vulnerabilities %}
+                    <li>{{ vulnerability }}</li>
                 {% endfor %}
-            </tbody>
-        </table>
-    {% endif %}
-    <a href="{% url 'scan' %}">Back to Scanner</a>
+            </ul>
+            
+            <h2>Discovered Users:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Server</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.role }}</td>
+                            <td>{{ user.server }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+        <div class="btn-container">
+            <a href="sample.csv" download class="btn btn-csv">
+                <i class="fas fa-file-csv"></i> Download CSV
+            </a>
+            <a href="mailto:?subject=CSV%20File&body=Please%20find%20the%20CSV%20file%20attached." class="btn btn-email">
+                <i class="fas fa-envelope"></i> Send via Email
+            </a>
+        </div>
+
+        <a href="{% url 'scan' %}" class="back-link">Back to Scanner</a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+
 </body>
 </html>
