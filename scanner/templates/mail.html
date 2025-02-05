@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Vulnerability Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .header {
+            background: #2c3e50;
+            color: #ffffff;
+            text-align: center;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+        }
+        .header h2 {
+            margin: 0;
+            font-size: 22px;
+        }
+        .content {
+            padding: 20px;
+            color: #333;
+        }
+        .content p {
+            font-size: 16px;
+        }
+        .table-container {
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background: #34495e;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .severity-high {
+            color: #fff;
+            background: #e74c3c;
+            padding: 5px 8px;
+            border-radius: 4px;
+        }
+        .severity-medium {
+            color: #fff;
+            background: #f39c12;
+            padding: 5px 8px;
+            border-radius: 4px;
+        }
+        .severity-low {
+            color: #fff;
+            background: #27ae60;
+            padding: 5px 8px;
+            border-radius: 4px;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 14px;
+            color: #666;
+            background: #ecf0f1;
+            border-radius: 0 0 8px 8px;
+            margin-top: 20px;
+        }
+        .footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Website Vulnerability Report</h2>
+        </div>
+        <div class="content">
+            <p>Hello,</p>
+            <p>The security scan for <strong>{{ website_url }}</strong> was completed on <strong>{{ scan_date }}</strong>. Below is the list of detected vulnerabilities:</p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Vulnerability</th>
+                            <th>Severity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for vulnerability in vulnerabilities %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ vulnerability.name }}</td>
+                            <td>
+                                {% if vulnerability.severity == "High" %}
+                                    <span class="severity-high">High</span>
+                                {% elif vulnerability.severity == "Medium" %}
+                                    <span class="severity-medium">Medium</span>
+                                {% else %}
+                                    <span class="severity-low">Low</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <p>If you have any questions, please contact us.</p>
+        </div>
+        <div class="footer">
+            <p>Stay Safe | <a href="https://yourcompany.com">YourCompany</a></p>
+        </div>
+    </div>
+</body>
+</html>

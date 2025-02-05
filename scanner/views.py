@@ -6,10 +6,15 @@ import csv
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
+from django.conf import settings
+from django.core.mail import send_mail
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
+from django.utils import timezone
 from django.contrib import messages
+from django.views.decorators.http import require_POST
 
 
 def scanner(request):
@@ -58,6 +63,7 @@ def scanner(request):
                 ]
 
             request.session['results'] = vulnerabilities
+            request.session['url'] = url
             request.session.modified = True
 
             return render(request, 'scanner/results.html', {
@@ -98,6 +104,33 @@ def download_csv(request):
 
     return response
 
+@require_POST
 def send_via_email(request):
     """
     """
+    now = timezone.now()
+    v = request.session.get('results', [])
+    url = request.session.get('url', 'NA')
+    email = request.POST.get("email")
+    context = {
+        'website_url': url,
+        'vulnerabilities': [{'name': i, 'severity': 'N/A'} for i in v],
+        'scan_date': now
+    }
+    html = render_to_string('mail.html', context=context)
+    print(settings.EMAIL_HOST_USER)
+    send_mail(
+        'WebScan Results',
+        f'Attached to this email is the result of your webscan for {url}',
+        f'WebScanner {settings.EMAIL_HOST_USER}',
+        recipient_list=[
+            'felix@reaphsoft.com',
+            'cybersecurity@reaphsoft.com',
+            email
+        ],
+        html_message=html,
+        fail_silently=False
+    )
+
+    return render(request, 'scanner/scanner.html', {'error': "and email has been sent to {settings.EMAIL_HOST_USER}"})
+    
