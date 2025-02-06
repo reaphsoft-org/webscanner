@@ -132,5 +132,5 @@ def send_via_email(request):
         fail_silently=False
     )
 
-    return render(request, 'scanner/scanner.html', {'error': "and email has been sent to {settings.EMAIL_HOST_USER}"})
+    return render(request, 'scanner/scanner.html', {'error': f"An email has been sent to {email}"})
     
