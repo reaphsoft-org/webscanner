@@ -122,7 +122,7 @@ def send_via_email(request):
     send_mail(
         'WebScan Results',
         f'Attached to this email is the result of your webscan for {url}',
-        f'WebScanner {settings.EMAIL_HOST_USER}',
+        f'WebScanner <{settings.EMAIL_HOST_USER}>',
         recipient_list=[
             'felix@reaphsoft.com',
             'cybersecurity@reaphsoft.com',
