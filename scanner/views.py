@@ -117,8 +117,8 @@ def send_via_email(request):
         'vulnerabilities': [{'name': i, 'severity': 'N/A'} for i in v],
         'scan_date': now
     }
-    html = render_to_string('mail.html', context=context)
-    print(settings.EMAIL_HOST_USER)
+    html = render_to_string('scanner/mail.html', context=context)
+    
     send_mail(
         'WebScan Results',
         f'Attached to this email is the result of your webscan for {url}',
