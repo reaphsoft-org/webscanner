@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',   
     'scanner.apps.ScannerConfig',
+    'django_celery_results'
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,14 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 
 EMAIL_USE_TLS = True
+
+DATABASE_USERNAME = os.getenv('POSTGRES_USER', '')
+DATABASE_PASSWORD = os.getenv('POSTGRES_PASSWORD', '')
+DATABASE_NAME = os.getenv('POSTGRES_DB', '')
+
+CELERY_BROKER_URL = f"sqla+postgresql://{DATABASE_USERNAME}:{DATABASE_PASSWORD}@localhost:5432/{DATABASE_NAME}"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+
+CELERY_RESULT_BACKEND = "django-db"
+
