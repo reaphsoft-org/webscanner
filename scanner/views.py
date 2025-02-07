@@ -69,6 +69,9 @@ def scanner(request):
             request.session['url'] = url
             request.session.modified = True
 
+            task = run_crawler.delay(url)
+            return JsonResponse({"task_id": task.id})
+
             return render(request, 'scanner/results.html', {
                 'url': url,
                 'vulnerabilities': vulnerabilities or ["No vulnerabilities detected"],
