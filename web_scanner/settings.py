@@ -76,13 +76,18 @@ WSGI_APPLICATION = 'web_scanner.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+DATABASE_USERNAME = os.getenv('POSTGRES_USER', '')
+DATABASE_PASSWORD = os.getenv('POSTGRES_PASSWORD', '')
+DATABASE_NAME = os.getenv('POSTGRES_DB', '')
+DATABASE_HOST = os.getenv('DATABASE_HOST', '')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dbtest',
-        'USER': 'postgres',
-        'PASSWORD': 'mbaise24',
-        'HOST': 'db',
+        'NAME': DATABASE_NAME,
+        'USER': DATABASE_USERNAME,
+        'PASSWORD': DATABASE_PASSWORD,
+        'HOST': DATABASE_HOST,
         'PORT': '5432',
     }
 }
@@ -137,10 +142,6 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 
 EMAIL_USE_TLS = True
-
-DATABASE_USERNAME = os.getenv('POSTGRES_USER', '')
-DATABASE_PASSWORD = os.getenv('POSTGRES_PASSWORD', '')
-DATABASE_NAME = os.getenv('POSTGRES_DB', '')
 
 CELERY_BROKER_URL = f"sqla+postgresql://{DATABASE_USERNAME}:{DATABASE_PASSWORD}@localhost:5432/{DATABASE_NAME}"
 CELERY_ACCEPT_CONTENT = ["json"]
