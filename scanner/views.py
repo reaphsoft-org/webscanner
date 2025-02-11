@@ -4,11 +4,13 @@
 
 import csv
 import requests
+from .tasks import run_crawler
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
+from celery.result import AsyncResult
 from django.conf import settings
 from django.core.mail import send_mail
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
@@ -67,10 +69,12 @@ def scanner(request):
 
             request.session['results'] = vulnerabilities
             request.session['url'] = url
-            request.session.modified = True
 
             task = run_crawler.delay(url)
-            return JsonResponse({"task_id": task.id})
+            request.session['task_id'] = task.id
+
+            request.session.modified = True
+
 
             return render(request, 'scanner/results.html', {
                 'url': url,
@@ -139,4 +143,15 @@ def send_via_email(request):
     )
 
     return render(request, 'scanner/scanner.html', {'error': f"An email has been sent to {email}"})
-    
+
+def task_status(request, task_id):
+    result = AsyncResult(task_id)
+    if result.state == "SUCCESS":
+        return JsonResponse({"status": result.state, "result": result.result})
+    return JsonResponse({"status": result.state})
+
+def current_task(request):
+    task_id = request.session.get('task_id', None)
+    if not task_id:
+        return  JsonResponse({"status": "Not task found"})
+    return task_status(request, task_id)

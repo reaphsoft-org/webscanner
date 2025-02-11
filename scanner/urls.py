@@ -6,4 +6,6 @@ urlpatterns = [
     path('consent/', views.consent_page, name='consent'),
     path('download/csv/', views.download_csv, name='download_csv'),
     path('send/email/', views.send_via_email, name='send_via_email'),
+    path('scan/current/', views.current_task, name='current_task'),
+    path('scan/<int:id>', views.task_status, name='task_status')
 ]
