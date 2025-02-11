@@ -8,6 +8,9 @@ class WebCrawler:
         self.max_depth = max_depth
         self.visited_urls = set()
         self.discovered_urls = set()
+        self.headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
+            }
 
     def fetch_urls(self, url, depth=0):
         if depth > self.max_depth or url in self.visited_urls:
@@ -15,7 +18,7 @@ class WebCrawler:
 
         self.visited_urls.add(url)
         try:
-            response = requests.get(url, timeout=5)
+            response = requests.get(url, headers=self.headers, timeout=5)
             if response.status_code != 200:
                 return
         except requests.RequestException:

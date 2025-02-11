@@ -87,7 +87,6 @@ def scanner(request):
     
     return render(request, 'scanner/scanner.html')
 
-
 def consent_page(request):
     if request.method == 'POST':
         if 'yes' in request.POST:
@@ -155,3 +154,7 @@ def current_task(request):
     if not task_id:
         return  JsonResponse({"status": "Not task found"})
     return task_status(request, task_id)
+
+def tasks(request):
+    scan_id = request.session.get('task_id', "None")
+    return JsonResponse({'task_id': scan_id})
