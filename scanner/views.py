@@ -1,17 +1,13 @@
-# from django.shortcuts import render
-
 # Create your views here.
 
 import csv
 import requests
 from .tasks import run_crawler
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin
 from celery.result import AsyncResult
 from django.conf import settings
 from django.core.mail import send_mail
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.utils import timezone
