@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',   
     'scanner.apps.ScannerConfig',
-    'django_celery_results'
+    'django_celery_results',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
