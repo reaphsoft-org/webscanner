@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'scanner.apps.ScannerConfig',
     'django_celery_results',
     'rest_framework',
+    'vulnerabilities'
 ]
 
 MIDDLEWARE = [
