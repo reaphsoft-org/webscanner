@@ -8,7 +8,7 @@ from .serializers import VulnerabilitySignatureSerializer
 
 class FetchVulnerabilitiesAPI(APIView):
     def get(self, request):
-        api_url = "https://services.nvd.nist.gov/rest/json/cves/1.0"
+        api_url = "https://services.nvd.nist.gov/rest/json/cves/2.0"
         response = requests.get(api_url)
 
         if response.status_code == 200:
