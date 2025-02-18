@@ -67,15 +67,42 @@ class WebCrawler:
                 mod_data = {k: v + payload for k, v in (data or {}).items()} if data else None
                 
                 response = requests.request(method, self.base_url, headers=headers, params=mod_params, data=mod_data, timeout=5)
+
+                analysis = self.analyze_response(response, payload)
+
                 results.append({
                     "payload": payload,
                     "status_code": response.status_code,
-                    "response_text": response.text[:500]  # Limit response size for logs
+                    "headers": dict(response.headers),
+                    "response_text": response.text[:500],  # Limit response size for logs
+                    "analysis": analysis
                 })
             except Exception as e:
                 results.append({"payload": payload, "error": str(e)})
         
         return results
+
+    @staticmethod
+    def analyze_response(response, payload):
+        """Analyze HTTP response to identify potential vulnerabilities."""
+        indicators = {
+            "sql_injection": ["sql syntax", "mysql_fetch", "unclosed quotation mark"],
+            "xss": ["<script>", "alert("],
+            "ssrf": ["internal server error", "localhost", "private IP"],
+            "command_injection": ["uid=", "gid="],
+            "lfi": ["root:x", "[boot]", "boot.ini"],
+            "rfi": ["malicious.com"],
+            "open_redirect": ["Location: http://evil.com"]
+        }
+
+        findings = []
+
+        for vuln_type, keywords in indicators.items():
+            if any(keyword.lower() in response.text.lower() for keyword in keywords):
+                findings.append({"vulnerability": vuln_type, "payload": payload, "indicator": keywords})
+
+        return findings
+
 
 # Example usage:
 if __name__ == "__main__":
