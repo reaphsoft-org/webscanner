@@ -97,9 +97,14 @@
             <h1>Fuzzy Results</h1>
             <div class="results-container">
                 {% if results %}
+                    <h4>Below are details of {{ results|length }} results we found from the fuzzy vulnerability scan.</h4>
                     {% for result in results %}
                         <div class="result-item">
-                            {{ result }}
+                            {% for key, value in result.items %}
+                                <p>{{ key | upper }}</p>
+                                <p>{{ value }}</p>
+                                <br>
+                            {% endfor %}
                         </div>
                     {% endfor %}
                 {% else %}
