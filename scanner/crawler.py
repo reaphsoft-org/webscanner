@@ -34,7 +34,7 @@ class WebCrawler:
         except requests.RequestException:
             return
 
-        soup = BeautifulSoup(response.text, 'html.parser')
+        soup = BeautifulSoup(response.text.lower(), 'html.parser')
         for link in soup.find_all('a', href=True):
             full_url = urljoin(url, link['href'])
             if self.is_valid_url(full_url):
