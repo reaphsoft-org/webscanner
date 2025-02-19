@@ -2,7 +2,7 @@
 
 import csv
 import requests
-from .tasks import run_crawler
+from .tasks import run_crawler, run_fuzzy
 from bs4 import BeautifulSoup
 from celery.result import AsyncResult
 from django.conf import settings
@@ -68,6 +68,8 @@ def scanner(request):
 
             task = run_crawler.delay(url)
             request.session['task_id'] = task.id
+            fuzzy = run_fuzzy.delay(url)
+            request.session['fuzzy_id'] = fuzzy.id
 
             request.session.modified = True
 
@@ -153,4 +155,5 @@ def current_task(request):
 
 def tasks(request):
     scan_id = request.session.get('task_id', "None")
-    return JsonResponse({'task_id': scan_id})
+    fuzzy_id = request.session.get('fuzzy_id', "None")
+    return JsonResponse({'task_id': scan_id, 'fuzzy_id': fuzzy_id})
