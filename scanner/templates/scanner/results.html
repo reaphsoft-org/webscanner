@@ -134,10 +134,10 @@
             <button class="btn btn-email" onclick="openModal()">
                 <i class="fas fa-envelope"></i> Send via Email
             </button>
-            <a href="{% url 'crawler_results' %}" class="btn btn-crawler">
+            <a href="{% url 'task_status' 'c' task_id %}" class="btn btn-crawler">
                 <i class="fas fa-search"></i> Show Crawler Results
             </a>
-            <a href="{% url 'fuzzy_results' %}" class="btn btn-fuzzy">
+            <a href="{% url 'task_status' 'f' fuzzy_id %}" class="btn btn-fuzzy">
                 <i class="fas fa-adjust"></i> Show Fuzzy Results
             </a>
         </div>
