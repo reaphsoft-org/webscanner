@@ -97,6 +97,7 @@
             <h1>Crawler Results</h1>
             <div class="results-container">
                 {% if results %}
+                    <h4>Found {{ results|length }} links. </h4>
                     {% for result in results %}
                         <div class="result-item">
                             {{ result }}
