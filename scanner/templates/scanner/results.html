@@ -31,6 +31,7 @@
         .btn-container {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 15px;
             margin-top: 20px;
         }
@@ -66,57 +67,26 @@
             background: #0056b3;
             box-shadow: 0px 5px 8px rgba(0, 123, 255, 0.4);
         }
+        .btn-crawler {
+            background: #ff9800;
+            color: white;
+            border: 2px solid #e68900;
+        }
+        .btn-crawler:hover {
+            background: #e68900;
+            box-shadow: 0px 5px 8px rgba(255, 152, 0, 0.4);
+        }
+        .btn-fuzzy {
+            background: #9c27b0;
+            color: white;
+            border: 2px solid #7b1fa2;
+        }
+        .btn-fuzzy:hover {
+            background: #7b1fa2;
+            box-shadow: 0px 5px 8px rgba(156, 39, 176, 0.4);
+        }
         .btn i {
             font-size: 18px;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-        }
-        .modal input {
-            width: 90%;
-            padding: 10px;
-            margin-top: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .modal-buttons {
-            margin-top: 15px;
-        }
-        .modal-btn {
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-right: 10px;
-        }
-        .modal-btn:hover {
-            background: #0056b3;
-        }
-        .close-btn {
-            background: #dc3545;
-        }
-        .close-btn:hover {
-            background: #b52a37;
         }
     </style>
 </head>
@@ -164,6 +134,12 @@
             <button class="btn btn-email" onclick="openModal()">
                 <i class="fas fa-envelope"></i> Send via Email
             </button>
+            <a href="{% url 'crawler_results' %}" class="btn btn-crawler">
+                <i class="fas fa-search"></i> Show Crawler Results
+            </a>
+            <a href="{% url 'fuzzy_results' %}" class="btn btn-fuzzy">
+                <i class="fas fa-adjust"></i> Show Fuzzy Results
+            </a>
         </div>
 
         <a href="{% url 'scan' %}" class="btn btn-email" style="margin-top: 20px; background: #6c757d;">Back to Scanner</a>
