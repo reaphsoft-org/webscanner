@@ -146,7 +146,7 @@ def send_via_email(request):
 def task_status(request, task_id, scan_type):
     result = AsyncResult(task_id)
     scanning = result.state != "SUCCESS"
-    results = result.result if scanning else []
+    results = result.result if not scanning else []
     if scan_type == "f":
         return render(request, "scanner/fuzzy_results.html",
                       {"scanning": scanning,
