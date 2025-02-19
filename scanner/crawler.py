@@ -60,7 +60,8 @@ class WebCrawler:
         
         if not headers: headers = self.headers
         
-        for payload in payloads:
+        for index, payload in enumerate(payloads):
+            print(f"{index}/{len(payloads)}")
             try:
                 # Modify params or data with the payload
                 mod_params = {k: v + payload for k, v in (params or {}).items()} if params else None
@@ -106,7 +107,11 @@ class WebCrawler:
 
 # Example usage:
 if __name__ == "__main__":
-    target_url = "https://example.com"
+    import pprint
+    target_url = "https://google-gruyere.appspot.com//"
     crawler = WebCrawler(target_url, max_depth=2)
-    urls = crawler.start_crawl()
-    print("Discovered URLs:", urls)
+    # urls = crawler.start_crawl()
+    # print("Discovered URLs:", urls)
+    res = crawler.send_fuzz_request()
+    pprint.pprint(res)
+
