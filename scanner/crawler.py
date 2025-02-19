@@ -108,10 +108,9 @@ class WebCrawler:
 # Example usage:
 if __name__ == "__main__":
     import pprint
-    target_url = "https://google-gruyere.appspot.com//"
+    target_url = "https://google-gruyere.appspot.com/"
     crawler = WebCrawler(target_url, max_depth=2)
     # urls = crawler.start_crawl()
     # print("Discovered URLs:", urls)
     res = crawler.send_fuzz_request()
     pprint.pprint(res)
-
