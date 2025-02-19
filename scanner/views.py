@@ -37,11 +37,11 @@ def scanner(request):
             # Perform scanning logic
             vulnerabilities = []
             discovered_users = []
-            
+
             # Example 1: Check for common vulnerabilities
             if 'php?id=' in response.text or 'query=' in response.text:
                 vulnerabilities.append("Potential SQL Injection")
-            
+
             if '<script>' in response.text:
                 vulnerabilities.append("Potential Cross-Site Scripting (XSS)")
 
@@ -78,11 +78,13 @@ def scanner(request):
                 'url': url,
                 'vulnerabilities': vulnerabilities or ["No vulnerabilities detected"],
                 'users': discovered_users,
+                'task_id': task.id,
+                'fuzzy_id': fuzzy.id,
             })
         except requests.exceptions.RequestException as e:
             # Handle connection errors
             return render(request, 'scanner/scanner.html', {'error': f"Error accessing {url}: {str(e)}"})
-    
+
     return render(request, 'scanner/scanner.html')
 
 def consent_page(request):
@@ -125,7 +127,7 @@ def send_via_email(request):
         'scan_date': now
     }
     html = render_to_string('scanner/mail.html', context=context)
-    
+
     send_mail(
         'WebScan Results',
         f'Attached to this email is the result of your webscan for {url}',
@@ -141,17 +143,28 @@ def send_via_email(request):
 
     return render(request, 'scanner/scanner.html', {'error': f"An email has been sent to {email}"})
 
-def task_status(request, task_id):
+def task_status(request, task_id, scan_type):
     result = AsyncResult(task_id)
-    if result.state == "SUCCESS":
-        return JsonResponse({"status": result.state, "result": result.result})
-    return JsonResponse({"status": result.state})
+    scanning = result.state == "SUCCESS"
+    results = result.result if scanning else []
+    if scan_type == "f":
+        return render(request, "scanner/fuzzy_results.html",
+                      {"scanning": scanning,
+                       "results": results,
+                       "status": result.state })
+    elif scan_type == "c":
+        return render(request, "scanner/crawler_results.html",
+                      {"scanning": scanning,
+                       "results": results,
+                       "status": result.state })
+    else:
+        return redirect("scanner")
 
 def current_task(request):
     task_id = request.session.get('task_id', None)
     if not task_id:
         return  JsonResponse({"status": "Not task found"})
-    return task_status(request, task_id)
+    return task_status(request, task_id, '')
 
 def tasks(request):
     scan_id = request.session.get('task_id', "None")

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crawler Results</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 26px;
+        }
+        .spinner-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(0, 123, 255, 0.3);
+            border-top: 5px solid #007bff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .scanning-text {
+            font-size: 18px;
+            color: #555;
+            font-weight: bold;
+        }
+        .results-container {
+            margin-top: 20px;
+        }
+        .result-item {
+            background: #007bff;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 123, 255, 0.3);
+            transition: transform 0.2s ease-in-out;
+        }
+        .result-item:hover {
+            transform: scale(1.03);
+        }
+        .btn-back {
+            display: inline-block;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 12px 20px;
+            border-radius: 8px;
+            background: #6c757d;
+            color: white;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+        .btn-back:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        {% if scanning %}
+            <div class="spinner-container">
+                <div class="spinner"></div>
+                <p class="scanning-text">Scanning...</p>
+            </div>
+        {% else %}
+            <h1>Crawler Results</h1>
+            <div class="results-container">
+                {% if results %}
+                    {% for result in results %}
+                        <div class="result-item">
+                            {{ result }}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No results found.</p>
+                {% endif %}
+            </div>
+        {% endif %}
+        
+        <a href="{% url 'scan' %}" class="btn-back">Back to Scanner</a>
+    </div>
+
+</body>
+</html>
