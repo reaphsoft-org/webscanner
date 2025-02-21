@@ -154,7 +154,7 @@
                     <li>{{ vulnerability }}</li>
                 {% endfor %}
             </ul>
-            
+            {% comment %}
             <h2>Discovered Users:</h2>
             <table>
                 <thead>
@@ -174,7 +174,7 @@
                     {% endfor %}
                 </tbody>
             </table>
-
+            {% endcomment %}
             <h2>Detected Technologies:</h2>
             <table>
                 <thead>
@@ -184,7 +184,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for key, value in technologies %}
+                    {% for key, value in technologies.items %}
                         <tr>
                             <td>{{ key }}</td>
                             <td>{{ value }}</td>
