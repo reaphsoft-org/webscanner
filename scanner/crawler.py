@@ -22,6 +22,13 @@ class WebCrawler:
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36"
             }
 
+        self.technologies = {
+            "server": None,
+            "backend": None,
+            "frontend": [],
+            "cdn_libraries": []
+        }
+
     def fetch_urls(self, url, depth=0):
         if depth > self.max_depth or url in self.visited_urls:
             return
@@ -103,6 +110,45 @@ class WebCrawler:
                 findings.append({"vulnerability": vuln_type, "payload": payload, "indicator": keywords})
 
         return findings
+
+    def detect_technologies(self):
+        try:
+            response = requests.get(self.base_url, timeout=10, headers=self.headers)
+            headers = response.headers
+
+            # Extract server details from headers
+            if 'Server' in headers:
+                self.technologies['server'] = headers['Server']
+            if 'X-Powered-By' in headers:
+                self.technologies['backend'] = headers['X-Powered-By']
+
+            # Parse HTML content
+            soup = BeautifulSoup(response.text, 'html.parser')
+
+            # Detect meta tags revealing technology
+            for meta in soup.find_all('meta'):
+                if meta.get('name') == 'generator':
+                    self.technologies['backend'] = meta.get('content')
+
+            # Detect frontend libraries (JS frameworks)
+            script_tags = soup.find_all('script', src=True)
+            for script in script_tags:
+                src = script['src']
+                if 'jquery' in src:
+                    self.technologies['frontend'].append('jQuery')
+                elif 'react' in src:
+                    self.technologies['frontend'].append('React')
+                elif 'angular' in src:
+                    self.technologies['frontend'].append('Angular')
+                elif 'vue' in src:
+                    self.technologies['frontend'].append('Vue.js')
+
+                # Identify CDNs
+                if any(domain in src for domain in ["cdn", "cloudflare", "googleapis", "jsdelivr"]):
+                    self.technologies['cdn_libraries'].append(src)
+
+        except requests.RequestException as e:
+            print(f"Error fetching {self.base_url}: {e}")
 
 
 # Example usage:
