@@ -2,6 +2,7 @@
 
 import csv
 import requests
+from .crawler import WebCrawler
 from .tasks import run_crawler, run_fuzzy
 from bs4 import BeautifulSoup
 from celery.result import AsyncResult
@@ -73,6 +74,8 @@ def scanner(request):
 
             request.session.modified = True
 
+            master = WebCrawler(url)
+            master.detect_technologies()
 
             return render(request, 'scanner/results.html', {
                 'url': url,
@@ -80,6 +83,7 @@ def scanner(request):
                 'users': discovered_users,
                 'task_id': task.id,
                 'fuzzy_id': fuzzy.id,
+                'technologies': master.technologies
             })
         except requests.exceptions.RequestException as e:
             # Handle connection errors
