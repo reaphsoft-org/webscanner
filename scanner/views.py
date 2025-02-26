@@ -174,3 +174,8 @@ def tasks(request):
     scan_id = request.session.get('task_id', "None")
     fuzzy_id = request.session.get('fuzzy_id', "None")
     return JsonResponse({'task_id': scan_id, 'fuzzy_id': fuzzy_id})
+
+def home(request):
+    """
+    """
+    return render(request, "scanner/home.html")

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerability Scanner</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .link-box {
+            text-decoration: none;
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            transition: transform 0.3s, background 0.3s;
+            width: 150px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .link-box:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        svg {
+            width: 50px;
+            height: 50px;
+            margin-bottom: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to Vulnerability Scanner</h1>
+
+    <div class="container">
+        <a href="/admin/" class="link-box">
+            <svg viewBox="0 0 24 24" fill="white">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.38 0 2.5 1.12 2.5 2.5S13.38 10 12 10s-2.5-1.12-2.5-2.5S10.62 5 12 5zm0 14c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08C16.71 17.72 14.5 19 12 19z"/>
+            </svg>
+            Admin
+        </a>
+
+        <a href="{% url 'scan' %}" class="link-box">
+            <svg viewBox="0 0 24 24" fill="white">
+                <path d="M21 11H6.83l5.88-5.88a1 1 0 1 0-1.41-1.41l-7.29 7.3a1.003 1.003 0 0 0 0 1.42l7.29 7.3a1 1 0 0 0 1.41-1.42L6.83 13H21a1 1 0 1 0 0-2z"/>
+            </svg>
+            Scanner
+        </a>
+
+        <a href="/zap" class="link-box">
+            <svg viewBox="0 0 24 24" fill="white">
+                <path d="M11 21h-1v-4.68c-3.5-.39-6.28-3.42-6.28-7.08 0-.51.05-1.02.16-1.5h2.06c-.09.5-.14 1.01-.14 1.5 0 2.93 2.16 5.36 5 5.91v-2.16l3.15 3.16-3.15 3.15V21zm1-18v4.68c3.5.39 6.28 3.42 6.28 7.08 0 .51-.05 1.02-.16 1.5h-2.06c.09-.5.14-1.01.14-1.5 0-2.93-2.16-5.36-5-5.91V10l-3.15-3.16L12 3z"/>
+            </svg>
+            ZAP
+        </a>
+    </div>
+
+</body>
+</html>
