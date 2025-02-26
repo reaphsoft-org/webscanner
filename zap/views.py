@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
+from requests.exceptions import ProxyError
+
 from .tasks import spider, zap
 
 
@@ -36,8 +38,14 @@ def scan(request):
 def status(request):
     """"""
     scan_id = int(request.session.get("zap_scan_id", -1))
-    if scan_id < 0:
+    if scan_id < -1:
         return redirect("zap:home")
-    # level = zap.spider.status(scan_id)
+    message = ""
+    try:
+        level = zap.spider.status(scan_id)
+    except ProxyError:
+        level = 0
+        message = ("We were unable to establish a connection while checking the status of your scan. "
+                   "Please refresh the page or contact the admin.")
     # return JsonResponse({'status': level, 'results': zap.spider.results(scan_id) })
-    return render(request, "zap/status.html", {'level': 98, 'results': "" })
+    return render(request, "zap/status.html", {'level': level, 'results': "", "error": message })

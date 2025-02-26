@@ -58,6 +58,11 @@
             margin-bottom: 15px;
         }
 
+        h5 {
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+
         .status {
             display: flex;
             align-items: center;
@@ -85,6 +90,17 @@
             font-family: 'Orbitron', sans-serif;
             font-size: 2rem;
             color: #ffa502;
+        }
+
+        .error {
+            color: #8b0000; /* Dark red */
+            background: rgba(255, 204, 203, 0.8); /* Light red background */
+            font-size: 0.9rem;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 15px;
         }
 
         /* Responsive */
@@ -124,12 +140,15 @@
     <!-- Status Container -->
     <div class="container">
         <h1>Scan in Progress</h1>
-        <h5>Please refresh the page after some while to check the status</h5>
+        <h5>Please refresh the page after some time to check the status</h5>
 
         <div class="status">
             <span class="hourglass {% if level < 100 %}rotating{% endif %}">⏳</span>
             <span class="level">{{ level }}%</span>
         </div>
+
+        <!-- Error Message -->
+        {% if error %}<p class="error">{{ error }}</p>{% endif %}
     </div>
 
 </body>
