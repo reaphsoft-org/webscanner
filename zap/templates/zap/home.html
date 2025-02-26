@@ -143,7 +143,7 @@
     <div class="container">
         <h1>Enter URL for Scan</h1>
 
-        <form method="POST">
+        <form method="POST" action="{% url 'zap:scan' %}">
             {% csrf_token %}
             <div class="input-group">
                 <label for="url">Website URL</label>
