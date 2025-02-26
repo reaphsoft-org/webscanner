@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Add zap app.">
+    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Add zap urls.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web_scanner/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_scanner/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web_scanner/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_scanner/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zap/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/zap/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +16,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -358,11 +357,18 @@
       <option name="project" value="LOCAL" />
       <updated>1740555770472</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Add zap urls.py">
+      <option name="closed" value="true" />
+      <created>1740555826000</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1740555826000</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Set scan_status parameter to task_id" />
     <MESSAGE value="Add vulnerabilities to installed apps." />
     <MESSAGE value="Create Vulnerability Signature model.&#10;Create migrations &#10;Make migrations." />
     <MESSAGE value="Update gitignore." />
@@ -387,6 +393,7 @@
     <MESSAGE value="Update README.md" />
     <MESSAGE value="Add a home page to web app." />
     <MESSAGE value="Add zap app." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add zap app." />
+    <MESSAGE value="Add zap urls.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add zap urls.py" />
   </component>
 </project>
