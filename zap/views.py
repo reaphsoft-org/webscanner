@@ -35,9 +35,9 @@ def scan(request):
 
 def status(request):
     """"""
-    scan_id = int(request.session.get("zap_scan_id", 0))
-    level = 0
-    # if scan_id != 0:
+    scan_id = int(request.session.get("zap_scan_id", -1))
+    if scan_id < 0:
+        return redirect("zap:home")
     # level = zap.spider.status(scan_id)
     # return JsonResponse({'status': level, 'results': zap.spider.results(scan_id) })
     return render(request, "zap/status.html", {'level': 98, 'results': "" })
