@@ -12,5 +12,5 @@ def spider(target_url):
     try:
         scan_id = zap.spider.scan(target_url)
         return scan_id, ""
-    except ProxyError as e:
+    except ProxyError:
         return -1, "Scanner was unable to connect to proxy."
