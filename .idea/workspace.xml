@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Add zap urls.py">
+    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Add urls.py boiler codes.">
+      <change afterPath="$PROJECT_DIR$/scanner/templates/scanner/homev2.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scanner/templates/scanner/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/scanner/templates/scanner/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zap/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/zap/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zap/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/zap/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,6 +58,11 @@
     "git-widget-placeholder": "main"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/scanner/templates/scanner" />
+    </key>
+  </component>
   <component name="RunManager" selected="Python.crawler">
     <configuration name="crawler" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="webscanner" />
@@ -365,11 +373,18 @@
       <option name="project" value="LOCAL" />
       <updated>1740555826000</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Add urls.py boiler codes.">
+      <option name="closed" value="true" />
+      <created>1740555888776</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1740555888776</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add vulnerabilities to installed apps." />
     <MESSAGE value="Create Vulnerability Signature model.&#10;Create migrations &#10;Make migrations." />
     <MESSAGE value="Update gitignore." />
     <MESSAGE value="Create serializers.py" />
@@ -394,6 +409,7 @@
     <MESSAGE value="Add a home page to web app." />
     <MESSAGE value="Add zap app." />
     <MESSAGE value="Add zap urls.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add zap urls.py" />
+    <MESSAGE value="Add urls.py boiler codes." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add urls.py boiler codes." />
   </component>
 </project>
