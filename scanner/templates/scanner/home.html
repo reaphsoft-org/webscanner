@@ -27,7 +27,10 @@
 
         .container {
             display: flex;
+            flex-wrap: wrap; /* Allows wrapping on smaller screens */
+            justify-content: center;
             gap: 20px;
+            padding: 10px;
         }
 
         .link-box {
@@ -56,6 +59,22 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive styles */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .link-box {
+                width: 80%;
+            }
         }
     </style>
 </head>
