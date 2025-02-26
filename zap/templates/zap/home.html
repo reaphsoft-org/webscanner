@@ -152,7 +152,7 @@
             <div class="input-group">
                 <label for="url">Website URL</label>
                 <input type="url" name="url" id="url" placeholder="https://example.com" required>
-                <p class="error">{% if error %}{{ error }}{% endif %}</p>
+                {% if error %}<p class="error">{{ error }}</p>{% endif %}
             </div>
 
             <button type="submit">🚀 Start Scan</button>
