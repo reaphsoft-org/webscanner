@@ -23,3 +23,5 @@ celery -A web_scanner report | grep [BROKER]
 ## References
 1. [NIST NVD](https://nvd.nist.gov/developers/vulnerabilities)
 2. [NVD Rate Limits](https://nvd.nist.gov/developers/start-here)
+3. [Zap API Docs](https://www.zaproxy.org/docs/api/?python)
+4. [Zap Proxy](https://pypi.org/project/zaproxy/)
