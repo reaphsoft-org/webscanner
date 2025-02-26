@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="add spider function.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zap/templates/zap/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/zap/templates/zap/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zap/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/zap/views.py" afterDir="false" />
+    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Add scan view in zap.">
+      <change beforePath="$PROJECT_DIR$/zap/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/zap/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -444,11 +442,18 @@
       <option name="project" value="LOCAL" />
       <updated>1740558320873</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Add scan view in zap.">
+      <option name="closed" value="true" />
+      <created>1740558382654</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1740558382654</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add vulnerability analysis codes which analyses http responds for common vulnerability patterns." />
     <MESSAGE value="Add test target URL and some debugging information." />
     <MESSAGE value="Add fuzzy task to scan processes. Store task id in session." />
     <MESSAGE value="Set response text to lower for web crawling." />
@@ -473,6 +478,7 @@
     <MESSAGE value="Update README.md with references." />
     <MESSAGE value="Add zaproxy to requirements.txt" />
     <MESSAGE value="add spider function." />
-    <option name="LAST_COMMIT_MESSAGE" value="add spider function." />
+    <MESSAGE value="Add scan view in zap." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add scan view in zap." />
   </component>
 </project>
