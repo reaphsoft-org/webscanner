@@ -29,3 +29,4 @@ tzdata==2025.1
 urllib3==2.3.0
 vine==5.1.0
 wcwidth==0.2.13
+zaproxy==0.4.0
