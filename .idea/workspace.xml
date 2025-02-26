@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Make page responsive.">
-      <change afterPath="$PROJECT_DIR$/zap/templates/home.html" afterDir="false" />
+    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Add zap home.html file.&#10;Make homev2.html responsive.">
+      <change afterPath="$PROJECT_DIR$/zap/templates/zap/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scanner/templates/scanner/homev2.html" beforeDir="false" afterPath="$PROJECT_DIR$/scanner/templates/scanner/homev2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zap/templates/home.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/zap/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/zap/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +59,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/zap/templates/zap" />
       <recent name="$PROJECT_DIR$/scanner/templates/scanner" />
     </key>
   </component>
@@ -395,11 +397,18 @@
       <option name="project" value="LOCAL" />
       <updated>1740556462965</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Add zap home.html file.&#10;Make homev2.html responsive.">
+      <option name="closed" value="true" />
+      <created>1740556783410</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1740556783410</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Create serializers.py" />
     <MESSAGE value="Add fetch vulnerability api view." />
     <MESSAGE value="Create vulnerabilities urls.py" />
     <MESSAGE value="Include vulnerabilities urls." />
@@ -424,6 +433,7 @@
     <MESSAGE value="Add urls.py boiler codes." />
     <MESSAGE value="Add zap urls in home page." />
     <MESSAGE value="Make page responsive." />
-    <option name="LAST_COMMIT_MESSAGE" value="Make page responsive." />
+    <MESSAGE value="Add zap home.html file.&#10;Make homev2.html responsive." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add zap home.html file.&#10;Make homev2.html responsive." />
   </component>
 </project>
