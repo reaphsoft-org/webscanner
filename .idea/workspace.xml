@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Add zap urls in home page.">
+    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Make page responsive.">
+      <change afterPath="$PROJECT_DIR$/zap/templates/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scanner/templates/scanner/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/scanner/templates/scanner/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scanner/templates/scanner/homev2.html" beforeDir="false" afterPath="$PROJECT_DIR$/scanner/templates/scanner/homev2.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -386,11 +387,18 @@
       <option name="project" value="LOCAL" />
       <updated>1740556253906</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Make page responsive.">
+      <option name="closed" value="true" />
+      <created>1740556462965</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1740556462965</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Update gitignore." />
     <MESSAGE value="Create serializers.py" />
     <MESSAGE value="Add fetch vulnerability api view." />
     <MESSAGE value="Create vulnerabilities urls.py" />
@@ -415,6 +423,7 @@
     <MESSAGE value="Add zap urls.py" />
     <MESSAGE value="Add urls.py boiler codes." />
     <MESSAGE value="Add zap urls in home page." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add zap urls in home page." />
+    <MESSAGE value="Make page responsive." />
+    <option name="LAST_COMMIT_MESSAGE" value="Make page responsive." />
   </component>
 </project>
