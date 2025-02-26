@@ -38,14 +38,15 @@ def scan(request):
 def status(request):
     """"""
     scan_id = int(request.session.get("zap_scan_id", -1))
-    if scan_id < -1:
+    if scan_id < 0:
         return redirect("zap:home")
     message = ""
+    results = []
     try:
         level = zap.spider.status(scan_id)
+        results = zap.spider.results(scan_id)
     except ProxyError:
         level = 0
         message = ("We were unable to establish a connection while checking the status of your scan. "
                    "Please refresh the page or contact the admin.")
-    # return JsonResponse({'status': level, 'results': zap.spider.results(scan_id) })
-    return render(request, "zap/status.html", {'level': level, 'results': "", "error": message })
+    return render(request, "zap/status.html", {'level': level, 'results': results, "error": message})
