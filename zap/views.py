@@ -5,3 +5,6 @@ from django.shortcuts import render
 def home(request):
     """"""
     return render(request, "zap/home.html")
+
+def scan(request):
+    """"""
