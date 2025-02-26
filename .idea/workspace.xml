@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Create tasks.py for zap">
+    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Add zaproxy to requirements.txt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web_scanner/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/web_scanner/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zap/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/zap/tasks.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -419,12 +420,26 @@
       <option name="project" value="LOCAL" />
       <updated>1740557378040</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="Update README.md with references.">
+      <option name="closed" value="true" />
+      <created>1740557886252</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1740557886252</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Add zaproxy to requirements.txt">
+      <option name="closed" value="true" />
+      <created>1740557959174</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1740557959174</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Include vulnerabilities urls." />
-    <MESSAGE value="Update README.md&#10;Update NIST API URL." />
     <MESSAGE value="Update FetchVulnerabilitiesAPI to work with the 2.0 version of the nvd.nist database API." />
     <MESSAGE value="Add vulnerability analysis codes which analyses http responds for common vulnerability patterns." />
     <MESSAGE value="Add test target URL and some debugging information." />
@@ -448,6 +463,8 @@
     <MESSAGE value="Add zap home.html file.&#10;Make homev2.html responsive." />
     <MESSAGE value="Add contents of zap.html" />
     <MESSAGE value="Create tasks.py for zap" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create tasks.py for zap" />
+    <MESSAGE value="Update README.md with references." />
+    <MESSAGE value="Add zaproxy to requirements.txt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add zaproxy to requirements.txt" />
   </component>
 </project>
