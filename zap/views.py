@@ -14,7 +14,7 @@ def home(request):
 def scan(request):
     """"""
     url = request.POST.get('url')
-    scan_id = int(request.session.get("zap_error", ""))
+    scan_id = int(request.session.get("zap_scan_id", 0))
     if scan_id != 0:
         request.session['zap_error'] = ("A scan is currently ongoing, or hasn't been cleared. "
                                           "Please check the scan status.")

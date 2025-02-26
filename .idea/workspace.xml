@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Add views for scanning and redirecting.">
-      <change beforePath="$PROJECT_DIR$/zap/templates/zap/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/zap/templates/zap/home.html" afterDir="false" />
+    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Add scan url in zap home submit form.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zap/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/zap/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -466,11 +467,18 @@
       <option name="project" value="LOCAL" />
       <updated>1740559321574</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Add scan url in zap home submit form.">
+      <option name="closed" value="true" />
+      <created>1740559422445</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1740559422445</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Set response text to lower for web crawling." />
     <MESSAGE value="Some minor changes to crawler.py" />
     <MESSAGE value="Change scanning flag in views.py" />
     <MESSAGE value="Restore modal style in results.html" />
@@ -495,6 +503,7 @@
     <MESSAGE value="Add scan view in zap." />
     <MESSAGE value="Add scan url" />
     <MESSAGE value="Add views for scanning and redirecting." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add views for scanning and redirecting." />
+    <MESSAGE value="Add scan url in zap home submit form." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add scan url in zap home submit form." />
   </component>
 </project>
