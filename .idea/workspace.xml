@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Add scan url in zap home submit form.">
+    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Modify scan page to show that results of web crawling.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zap/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/zap/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zap/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/zap/tasks.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,16 +45,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "DefaultHtmlFileTemplate": "HTML File",
-    "Python.crawler.executor": "Run",
-    "Python.manage.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Python.crawler.executor&quot;: &quot;Run&quot;,
+    &quot;Python.manage.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/zap/templates/zap" />
@@ -130,62 +130,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1738831388261</updated>
-    </task>
-    <task id="LOCAL-00001" summary="Modify settings to use database parameters from env file.">
-      <option name="closed" value="true" />
-      <created>1739279759145</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1739279759145</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Add a celery max retries in settings.py">
-      <option name="closed" value="true" />
-      <created>1739280416053</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1739280416053</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Add headers to crawler.py&#10;Add scans url">
-      <option name="closed" value="true" />
-      <created>1739285208315</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1739285208315</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Fix docker-compose celery connection issues.">
-      <option name="closed" value="true" />
-      <created>1739342924739</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1739342924739</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Set scan_status parameter to task_id">
-      <option name="closed" value="true" />
-      <created>1739344552810</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1739344552810</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Add vulnerabilities to installed apps.">
-      <option name="closed" value="true" />
-      <created>1739524358965</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1739524358965</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Create Vulnerability Signature model.&#10;Create migrations &#10;Make migrations.">
-      <option name="closed" value="true" />
-      <created>1739524581945</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1739524581945</updated>
     </task>
     <task id="LOCAL-00008" summary="Update gitignore.">
       <option name="closed" value="true" />
@@ -475,23 +419,114 @@
       <option name="project" value="LOCAL" />
       <updated>1740559422445</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="Fix an error when checking for id.">
+      <option name="closed" value="true" />
+      <created>1740559569012</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1740559569012</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Make error more legible.">
+      <option name="closed" value="true" />
+      <created>1740570212991</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1740570212991</updated>
+    </task>
+    <task id="LOCAL-00046" summary="If not error, don't include error tag.">
+      <option name="closed" value="true" />
+      <created>1740570545554</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1740570545554</updated>
+    </task>
+    <task id="LOCAL-00047" summary="Return error on exception in spider task.">
+      <option name="closed" value="true" />
+      <created>1740573468741</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1740573468741</updated>
+    </task>
+    <task id="LOCAL-00048" summary="Redirect to home page and show error message on exception.">
+      <option name="closed" value="true" />
+      <created>1740573516032</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1740573516033</updated>
+    </task>
+    <task id="LOCAL-00049" summary="Remove redundant variable.">
+      <option name="closed" value="true" />
+      <created>1740574072763</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1740574072763</updated>
+    </task>
+    <task id="LOCAL-00050" summary="Add the status html page.">
+      <option name="closed" value="true" />
+      <created>1740574342802</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1740574342803</updated>
+    </task>
+    <task id="LOCAL-00051" summary="If scan_id is less than 0, redirect to home page.">
+      <option name="closed" value="true" />
+      <created>1740574445035</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1740574445035</updated>
+    </task>
+    <task id="LOCAL-00052" summary="Set url in status.html">
+      <option name="closed" value="true" />
+      <created>1740574917284</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1740574917284</updated>
+    </task>
+    <task id="LOCAL-00053" summary="Show error when scanning.">
+      <option name="closed" value="true" />
+      <created>1740575098460</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1740575098460</updated>
+    </task>
+    <task id="LOCAL-00054" summary="Set URL in  home.html">
+      <option name="closed" value="true" />
+      <created>1740575273713</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1740575273714</updated>
+    </task>
+    <task id="LOCAL-00055" summary="Make returned scan_id to be int.">
+      <option name="closed" value="true" />
+      <created>1740576087157</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1740576087158</updated>
+    </task>
+    <task id="LOCAL-00056" summary="Modify scan page to show that results of web crawling.">
+      <option name="closed" value="true" />
+      <created>1740577587360</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1740577587360</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Some minor changes to crawler.py" />
-    <MESSAGE value="Change scanning flag in views.py" />
-    <MESSAGE value="Restore modal style in results.html" />
-    <MESSAGE value="Fix logic which shows crawler results." />
-    <MESSAGE value="Update crawler_results.html" />
-    <MESSAGE value="Add detect technologies method to the WebCrawler class." />
-    <MESSAGE value="Include detect technologies tool in views.py and show in results.html." />
-    <MESSAGE value="Perform a basic detection of technologies used in a website. Crude for now, but can be improved." />
-    <MESSAGE value="Update README.md" />
-    <MESSAGE value="Add a home page to web app." />
-    <MESSAGE value="Add zap app." />
-    <MESSAGE value="Add zap urls.py" />
-    <MESSAGE value="Add urls.py boiler codes." />
     <MESSAGE value="Add zap urls in home page." />
     <MESSAGE value="Make page responsive." />
     <MESSAGE value="Add zap home.html file.&#10;Make homev2.html responsive." />
@@ -504,6 +539,19 @@
     <MESSAGE value="Add scan url" />
     <MESSAGE value="Add views for scanning and redirecting." />
     <MESSAGE value="Add scan url in zap home submit form." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add scan url in zap home submit form." />
+    <MESSAGE value="Fix an error when checking for id." />
+    <MESSAGE value="Make error more legible." />
+    <MESSAGE value="If not error, don't include error tag." />
+    <MESSAGE value="Return error on exception in spider task." />
+    <MESSAGE value="Redirect to home page and show error message on exception." />
+    <MESSAGE value="Remove redundant variable." />
+    <MESSAGE value="Add the status html page." />
+    <MESSAGE value="If scan_id is less than 0, redirect to home page." />
+    <MESSAGE value="Set url in status.html" />
+    <MESSAGE value="Show error when scanning." />
+    <MESSAGE value="Set URL in  home.html" />
+    <MESSAGE value="Make returned scan_id to be int." />
+    <MESSAGE value="Modify scan page to show that results of web crawling." />
+    <option name="LAST_COMMIT_MESSAGE" value="Modify scan page to show that results of web crawling." />
   </component>
 </project>
