@@ -170,3 +170,4 @@ cython_debug/
 # PyPI configuration file
 .pypirc
 venv.env
+zap_local_test.py

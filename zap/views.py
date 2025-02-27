@@ -42,11 +42,18 @@ def status(request):
         return redirect("zap:home")
     message = ""
     results = []
+    items_left = 0
+    passive_results = []
     try:
-        level = zap.spider.status(scan_id)
+        level = int(zap.spider.status(scan_id))
         results = zap.spider.results(scan_id)
+        if level >= 100:
+            items_left = zap.pscan.records_to_scan
+
     except ProxyError:
         level = 0
         message = ("We were unable to establish a connection while checking the status of your scan. "
                    "Please refresh the page or contact the admin.")
-    return render(request, "zap/status.html", {'level': level, 'results': results, "error": message})
+    return render(request, "zap/status.html", {'level': level, 'results': results,
+                                               "error": message, "items_left": items_left,
+                                               "passive_results": passive_results})

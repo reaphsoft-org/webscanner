@@ -51,6 +51,7 @@
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
             max-width: 400px;
             width: 100%;
+            margin-bottom: 20px;
         }
 
         h1 {
@@ -93,8 +94,8 @@
         }
 
         .error {
-            color: #8b0000; /* Dark red */
-            background: rgba(255, 204, 203, 0.8); /* Light red background */
+            color: #8b0000;
+            background: rgba(255, 204, 203, 0.8);
             font-size: 0.9rem;
             font-weight: bold;
             padding: 5px 10px;
@@ -204,8 +205,8 @@
         <!-- Scan Results Accordion -->
         {% if results %}
         <div class="accordion">
-            <div class="accordion-header" onclick="toggleAccordion()">📜 View Scan Results</div>
-            <div class="accordion-content" id="accordion-content">
+            <div class="accordion-header" onclick="toggleAccordion('main-accordion')">📜 View Scan Results</div>
+            <div class="accordion-content" id="main-accordion">
                 <ul>
                     {% for url in results %}
                         <li>{{ url }}</li>
@@ -216,14 +217,35 @@
         {% endif %}
     </div>
 
+    <!-- Passive Scan Status -->
+    <div class="container">
+        <h1>Passive Scan</h1>
+        {% if items_left > 0 %}
+        <div class="status">
+            <span class="hourglass rotating">⏳</span>
+            <span>{{ items_left }} checks remaining...</span>
+        </div>
+        {% else %}
+        <h5>Passive scan completed.</h5>
+
+        <!-- Passive Scan Results -->
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion('passive-accordion')">📜 View Passive Scan Results</div>
+            <div class="accordion-content" id="passive-accordion">
+                <ul>
+                    {% for item in passive_results %}
+                        <li><strong>{{ item.name }}:</strong> {{ item.value }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
     <script>
-        function toggleAccordion() {
-            var content = document.getElementById("accordion-content");
-            if (content.style.display === "block") {
-                content.style.display = "none";
-            } else {
-                content.style.display = "block";
-            }
+        function toggleAccordion(id) {
+            var content = document.getElementById(id);
+            content.style.display = content.style.display === "block" ? "none" : "block";
         }
     </script>
 
