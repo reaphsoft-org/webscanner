@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Make scan result more aesthetic.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="First accordion shows crawl results.">
       <change beforePath="$PROJECT_DIR$/zap/templates/zap/status.html" beforeDir="false" afterPath="$PROJECT_DIR$/zap/templates/zap/status.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -131,14 +130,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1738831388261</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Include vulnerabilities urls.">
-      <option name="closed" value="true" />
-      <created>1739524972414</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1739524972414</updated>
     </task>
     <task id="LOCAL-00013" summary="Update README.md&#10;Update NIST API URL.">
       <option name="closed" value="true" />
@@ -524,11 +515,18 @@
       <option name="project" value="LOCAL" />
       <updated>1740685351281</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="First accordion shows crawl results.">
+      <option name="closed" value="true" />
+      <created>1740685866866</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1740685866866</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add contents of zap.html" />
     <MESSAGE value="Create tasks.py for zap" />
     <MESSAGE value="Update README.md with references." />
     <MESSAGE value="Add zaproxy to requirements.txt" />
@@ -553,6 +551,7 @@
     <MESSAGE value="Add ajaxSpider." />
     <MESSAGE value="Show passive scan results." />
     <MESSAGE value="Make scan result more aesthetic." />
-    <option name="LAST_COMMIT_MESSAGE" value="Make scan result more aesthetic." />
+    <MESSAGE value="First accordion shows crawl results." />
+    <option name="LAST_COMMIT_MESSAGE" value="First accordion shows crawl results." />
   </component>
 </project>
