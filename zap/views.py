@@ -44,11 +44,14 @@ def status(request):
     results = []
     items_left = 0
     passive_results = []
+    selected_keys = ['name', 'confidence', 'cweid', 'description', 'method', 'risk', 'solution', 'url']
     try:
         level = int(zap.spider.status(scan_id))
         results = zap.spider.results(scan_id)
         if level >= 100:
-            items_left = zap.pscan.records_to_scan
+            items_left = int(zap.pscan.records_to_scan)
+            if items_left == 0:
+                passive_results = [{key: i[key] for key in selected_keys} for i in zap.core.alerts()]
 
     except ProxyError:
         level = 0

@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Add ajaxSpider.">
-      <change afterPath="$PROJECT_DIR$/zap_local_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Show passive scan results.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zap/templates/zap/status.html" beforeDir="false" afterPath="$PROJECT_DIR$/zap/templates/zap/status.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zap/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/zap/views.py" afterDir="false" />
@@ -134,14 +132,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1738831388261</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Create serializers.py">
-      <option name="closed" value="true" />
-      <created>1739524767838</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1739524767838</updated>
     </task>
     <task id="LOCAL-00010" summary="Add fetch vulnerability api view.">
       <option name="closed" value="true" />
@@ -527,11 +517,18 @@
       <option name="project" value="LOCAL" />
       <updated>1740656160053</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Show passive scan results.">
+      <option name="closed" value="true" />
+      <created>1740682994314</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1740682994314</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Make page responsive." />
     <MESSAGE value="Add zap home.html file.&#10;Make homev2.html responsive." />
     <MESSAGE value="Add contents of zap.html" />
     <MESSAGE value="Create tasks.py for zap" />
@@ -556,6 +553,7 @@
     <MESSAGE value="Make returned scan_id to be int." />
     <MESSAGE value="Modify scan page to show that results of web crawling." />
     <MESSAGE value="Add ajaxSpider." />
-    <option name="LAST_COMMIT_MESSAGE" value="Add ajaxSpider." />
+    <MESSAGE value="Show passive scan results." />
+    <option name="LAST_COMMIT_MESSAGE" value="Show passive scan results." />
   </component>
 </project>
