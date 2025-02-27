@@ -132,14 +132,6 @@
       <option name="presentableId" value="Default" />
       <updated>1738831388261</updated>
     </task>
-    <task id="LOCAL-00011" summary="Create vulnerabilities urls.py">
-      <option name="closed" value="true" />
-      <created>1739524878846</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1739524878846</updated>
-    </task>
     <task id="LOCAL-00012" summary="Include vulnerabilities urls.">
       <option name="closed" value="true" />
       <created>1739524972414</created>
@@ -524,7 +516,15 @@
       <option name="project" value="LOCAL" />
       <updated>1740684925345</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="Make scan result more aesthetic.">
+      <option name="closed" value="true" />
+      <created>1740685351281</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1740685351281</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
