@@ -38,6 +38,7 @@ def scan(request):
 def status(request):
     """"""
     scan_id = int(request.session.get("zap_scan_id", -1))
+    target_url = request.session.get("url", "")
     if scan_id < 0:
         return redirect("zap:home")
     message = ""
@@ -51,7 +52,7 @@ def status(request):
         if level >= 100:
             items_left = int(zap.pscan.records_to_scan)
             if items_left == 0:
-                passive_results = [{key: i[key] for key in selected_keys} for i in zap.core.alerts()]
+                passive_results = [{key: i[key] for key in selected_keys} for i in zap.core.alerts(baseurl=target_url)]
 
     except ProxyError:
         level = 0
