@@ -61,3 +61,7 @@ def status(request):
     return render(request, "zap/status.html", {'level': level, 'results': results,
                                                "error": message, "items_left": items_left,
                                                "passive_results": passive_results})
+
+def clear(request):
+    """"""
+    return render(request, "zap/clear.html")

@@ -205,13 +205,7 @@
 </head>
 <body>
 
-    <!-- Navigation Bar -->
-    <div class="navbar">
-        <a href="/" class="nav-link">🏠 Home</a>
-        <a href="{% url 'zap:status' %}" class="nav-link">⏳ Check Scan Status</a>
-        <a href="/scan-history/" class="nav-link">📜 Scan History</a>
-       <a href="#" class="nav-link">🗑️ Clear Session</a>
-    </div>
+   {% include 'zap/nav.html' %}
 
     <!-- Status Container -->
     <div class="container">

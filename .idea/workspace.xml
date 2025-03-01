@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Use set for urls in passive scan results.">
+    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Add a clear nav item.">
+      <change afterPath="$PROJECT_DIR$/zap/templates/zap/clear.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/zap/templates/zap/nav.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zap/templates/zap/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/zap/templates/zap/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zap/templates/zap/status.html" beforeDir="false" afterPath="$PROJECT_DIR$/zap/templates/zap/status.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zap/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/zap/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/zap/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/zap/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,14 +136,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1738831388261</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Change scanning flag in views.py">
-      <option name="closed" value="true" />
-      <created>1739977489725</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1739977489725</updated>
     </task>
     <task id="LOCAL-00021" summary="Restore modal style in results.html">
       <option name="closed" value="true" />
@@ -524,11 +521,18 @@
       <option name="project" value="LOCAL" />
       <updated>1740837037381</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="Add a clear nav item.">
+      <option name="closed" value="true" />
+      <created>1740838611618</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1740838611619</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add scan url in zap home submit form." />
     <MESSAGE value="Fix an error when checking for id." />
     <MESSAGE value="Make error more legible." />
     <MESSAGE value="If not error, don't include error tag." />
@@ -553,6 +557,7 @@
     <MESSAGE value="UI updates." />
     <MESSAGE value="Make affected urls more visually appealing." />
     <MESSAGE value="Use set for urls in passive scan results." />
-    <option name="LAST_COMMIT_MESSAGE" value="Use set for urls in passive scan results." />
+    <MESSAGE value="Add a clear nav item." />
+    <option name="LAST_COMMIT_MESSAGE" value="Add a clear nav item." />
   </component>
 </project>
