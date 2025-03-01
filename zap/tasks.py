@@ -49,7 +49,7 @@ def passive_scan_results(target_url):
         _sample = _list[0]
         dic = {"name": _sample["name"], "cweid": _sample["cweid"], "description": _sample["description"],
                "risk": _sample["risk"], "solution": _sample["solution"],
-               "urls": [(i["confidence"], i["url"]) for i in _list], "tags": list(_sample["tags"].items())}
+               "urls": set([(i["confidence"], i["url"]) for i in _list]), "tags": list(_sample["tags"].items())}
         results.append(dic)
     results.extend(
         [
