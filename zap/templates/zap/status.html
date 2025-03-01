@@ -47,13 +47,13 @@
             padding: 25px;
             border-radius: 10px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            width: 50%;  /* Default: 60% for larger screens */
+            width: 45%;  /* Default: 60% for larger screens */
 <!--            max-width: 554px;-->
             margin-bottom: 20px;
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .container {
                 width: 90%; /* Adjust to 90% for smaller screens */
             }
@@ -270,13 +270,31 @@
                         <li style="text-align: justify;"><strong>RISK:</strong> {{ item.risk }}</li>
                         <li style="text-align: justify;"><strong>SOLUTION:</strong> {{ item.solution }}</li>
                         <li style="text-align: justify;"><strong>AFFECTED URLs:</strong>
-                                {% for url in item.urls %}
-                                <div style="text-align: left">
-                                    <p>Name: {{ url.1 }}</p>
-                                    <p>Confidence: {{ url.0 }}</p>
-                                </div>
-                                {% endfor %}
+                            <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                                <thead>
+                                    <tr>
+                                        <th style="border-bottom: 1px solid rgba(255, 255, 255, 0.3); padding: 8px; text-align: left;">#</th>
+                                        <th style="border-bottom: 1px solid rgba(255, 255, 255, 0.3); padding: 8px; text-align: left;">Name (URL)</th>
+                                        <th style="border-bottom: 1px solid rgba(255, 255, 255, 0.3); padding: 8px; text-align: left;">Confidence</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for url in item.urls %}
+                                    <tr>
+                                        <td style="padding: 8px;">{{ forloop.counter }}</td>
+                                        <td style="padding: 8px; word-break: break-word; max-width: 300px; overflow-wrap: break-word;">
+                                            <a href="{{ url.1 }}" target="_blank" style="color: #ffcc00; text-decoration: none; display: inline-block; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ url.1 }}">
+                                                {{ url.1 }}
+                                            </a>
+                                        </td>
+                                        <td style="padding: 8px;">{{ url.0 }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
                         </li>
+
+
                         <li style="text-align: justify;"><strong>SECURITY TAGs:</strong>
                                 <div style="text-align: left">
                                 {% for tag in item.tags %}

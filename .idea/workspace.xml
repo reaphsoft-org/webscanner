@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Display more detailed information regarding found weaknesses.">
+    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="UI updates.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zap/templates/zap/status.html" beforeDir="false" afterPath="$PROJECT_DIR$/zap/templates/zap/status.html" afterDir="false" />
     </list>
@@ -131,14 +131,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1738831388261</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Add fuzzy task to scan processes. Store task id in session.">
-      <option name="closed" value="true" />
-      <created>1739956559247</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1739956559247</updated>
     </task>
     <task id="LOCAL-00018" summary="Set response text to lower for web crawling.">
       <option name="closed" value="true" />
@@ -524,11 +516,18 @@
       <option name="project" value="LOCAL" />
       <updated>1740835649682</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="UI updates.">
+      <option name="closed" value="true" />
+      <created>1740836121636</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1740836121636</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Add scan view in zap." />
     <MESSAGE value="Add scan url" />
     <MESSAGE value="Add views for scanning and redirecting." />
     <MESSAGE value="Add scan url in zap home submit form." />
@@ -553,6 +552,7 @@
     <MESSAGE value="Fetch on the alerts for the current url being scanned." />
     <MESSAGE value="Modify results to return in a specific format." />
     <MESSAGE value="Display more detailed information regarding found weaknesses." />
-    <option name="LAST_COMMIT_MESSAGE" value="Display more detailed information regarding found weaknesses." />
+    <MESSAGE value="UI updates." />
+    <option name="LAST_COMMIT_MESSAGE" value="UI updates." />
   </component>
 </project>
