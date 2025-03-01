@@ -38,10 +38,10 @@ def ajax_spider(target_url):
 
 def passive_scan_results(target_url):
     alerts = zap.core.alerts(baseurl=target_url)
-    cwes = list(filter(lambda i: i["cweid"] != "-1", alerts))
-    non_cwes = filter(lambda i: i["cweid"] == "-1", alerts)
-    cwes.sort(key=lambda x: int(x["cweid"]))
-    groups = groupby(cwes, lambda i: int(i["cweid"]))
+    cwe = list(filter(lambda i: i["cweid"] != "-1", alerts))
+    non_cwe = list(filter(lambda i: i["cweid"] == "-1", alerts))
+    cwe.sort(key=lambda x: int(x["cweid"]))
+    groups = groupby(cwe, lambda i: int(i["cweid"]))
 
     results = []
     for group, items in groups:
@@ -51,13 +51,15 @@ def passive_scan_results(target_url):
                "risk": _sample["risk"], "solution": _sample["solution"],
                "urls": set([(i["confidence"], i["url"]) for i in _list]), "tags": list(_sample["tags"].items())}
         results.append(dic)
-    results.extend(
-        [
-            {"name": _sample["name"], "cweid": _sample["cweid"], "description": _sample["description"],
-             "risk": _sample["risk"], "solution": _sample["solution"],
-             "urls": [(_sample["confidence"], _sample["url"])],
-             "tags": list(_sample["tags"].items())}
-            for _sample in non_cwes
-        ]
-    )
+    non_cwe.sort(key=lambda x: x["name"])
+    groups2 = groupby(non_cwe, lambda i: i["name"])
+
+    for group, items in groups2:
+        _list = list(items)
+        _sample = _list[0]
+        dic = {"name": _sample["name"], "cweid": _sample["cweid"], "description": _sample["description"],
+               "risk": _sample["risk"], "solution": _sample["solution"],
+               "urls": set([(i["confidence"], i["url"]) for i in _list]), "tags": list(_sample["tags"].items())}
+        results.append(dic)
+
     return results
