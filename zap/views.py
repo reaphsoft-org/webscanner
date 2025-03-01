@@ -64,5 +64,8 @@ def status(request):
 
 def clear(request):
     """"""
+    scan_id = int(request.session.get("zap_scan_id", -1))
+    if scan_id != -1:
+        zap.spider.stop(scan_id)
     request.session.flush()
     return render(request, "zap/clear.html")
