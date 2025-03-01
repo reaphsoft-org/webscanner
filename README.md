@@ -25,3 +25,5 @@ celery -A web_scanner report | grep [BROKER]
 2. [NVD Rate Limits](https://nvd.nist.gov/developers/start-here)
 3. [Zap API Docs](https://www.zaproxy.org/docs/api/?python)
 4. [Zap Proxy](https://pypi.org/project/zaproxy/)
+5. [Zap Report CWE & WASC ID](https://groups.google.com/g/zaproxy-users/c/gD0d44bGeB8)
+6. [CWE Def](https://cwe.mitre.org/)

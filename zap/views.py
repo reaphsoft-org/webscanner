@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from requests.exceptions import ProxyError
 
-from .tasks import spider, zap
+from .tasks import spider, zap, passive_scan_results
 
 
 # Create your views here.
@@ -52,7 +52,7 @@ def status(request):
         if level >= 100:
             items_left = int(zap.pscan.records_to_scan)
             if items_left == 0:
-                passive_results = [{key: i[key] for key in selected_keys} for i in zap.core.alerts(baseurl=target_url)]
+                passive_results = passive_scan_results(target_url)
 
     except ProxyError:
         level = 0

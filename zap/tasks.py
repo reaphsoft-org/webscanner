@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import time
+from itertools import groupby
 
 from requests.exceptions import ProxyError
 from zapv2 import ZAPv2
@@ -33,3 +34,23 @@ def ajax_spider(target_url):
         return int(scan_id), ""
     except ProxyError:
         return -1, "Scanner was unable to connect to proxy."
+
+
+def passive_scan_results(target_url):
+    alerts = zap.core.alerts(baseurl=target_url)
+    groups = groupby(alerts, lambda i: i["name"])
+
+    results = []
+    for group, items in groups:
+        dic = {"name": group}
+        _list = list(items)
+        _sample = _list[0]
+        dic["cweid"] = _sample["cweid"]
+        dic["description"] = _sample["description"]
+        dic["risk"] = _sample["risk"]
+        dic["solution"] = _sample["solution"]
+        dic["urls"] = [(i["confidence"], i["url"]) for i in _list]
+        dic["tags"] = list(_sample["tags"].keys())
+        results.append(dic)
+
+    return results
