@@ -64,4 +64,5 @@ def status(request):
 
 def clear(request):
     """"""
+    request.session.flush()
     return render(request, "zap/clear.html")
