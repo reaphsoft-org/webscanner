@@ -45,7 +45,7 @@ def status(request):
     results = []
     items_left = 0
     passive_results = []
-    selected_keys = ['name', 'confidence', 'cweid', 'description', 'method', 'risk', 'solution', 'url']
+
     try:
         level = int(zap.spider.status(scan_id))
         results = zap.spider.results(scan_id)

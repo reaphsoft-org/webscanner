@@ -164,6 +164,12 @@
             border-bottom: none;
         }
 
+        .tag-link{
+            color: #ffcc00;
+            text-underline-offset: 3px;
+            text-decoration-color: #ffcc00;
+        }
+
         /* Responsive */
         @media (max-width: 500px) {
             h1 {
@@ -250,9 +256,28 @@
                 <div class="result-card">
                     <h3>Scan Result {{ forloop.counter }}</h3>
                     <ul>
-                        {% for key, value in item.items %}
-                            <li style="text-align: justify;"><strong>{{ key|upper }}:</strong> {{ value }}</li>
-                        {% endfor %}
+                        <li style="text-align: justify;"><strong>NAME:</strong> {{ item.name }}</li>
+                        <li style="text-align: justify;"><strong>CWE ID:</strong> {{ item.cweid }}</li>
+                        <li style="text-align: justify;"><strong>DESCRIPTION:</strong> {{ item.description }}</li>
+                        <li style="text-align: justify;"><strong>RISK:</strong> {{ item.risk }}</li>
+                        <li style="text-align: justify;"><strong>SOLUTION:</strong> {{ item.solution }}</li>
+                        <li style="text-align: justify;"><strong>AFFECTED URLs:</strong>
+                                {% for url in item.urls %}
+                                <div style="text-align: left">
+                                    <p>Name: {{ url.1 }}</p>
+                                    <p>Confidence: {{ url.0 }}</p>
+                                </div>
+                                {% endfor %}
+                        </li>
+                        <li style="text-align: justify;"><strong>SECURITY TAGs:</strong>
+                                <div style="text-align: left">
+                                {% for tag in item.tags %}
+                                    <p>
+                                        <a class="tag-link" href="{{ tag.1 }}">{{ tag.0 }}</a>
+                                    </p>
+                                {% endfor %}
+                                </div>
+                        </li>
                     </ul>
                 </div>
                 {% endfor %}
