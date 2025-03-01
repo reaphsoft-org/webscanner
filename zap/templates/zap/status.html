@@ -47,10 +47,18 @@
             padding: 25px;
             border-radius: 10px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            max-width: 554px;
-            width: 100%;
+            width: 50%;  /* Default: 60% for larger screens */
+<!--            max-width: 554px;-->
             margin-bottom: 20px;
         }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%; /* Adjust to 90% for smaller screens */
+            }
+        }
+
 
         h1 {
             font-size: 2rem;
@@ -166,7 +174,7 @@
 
         .tag-link{
             color: #ffcc00;
-            text-underline-offset: 3px;
+            text-underline-offset: 4px;
             text-decoration-color: #ffcc00;
         }
 
@@ -254,7 +262,7 @@
             <div class="accordion-content" id="passive-accordion">
                 {% for item in passive_results %}
                 <div class="result-card">
-                    <h3>Scan Result {{ forloop.counter }}</h3>
+                    <h3>Weakness Result {{ forloop.counter }}</h3>
                     <ul>
                         <li style="text-align: justify;"><strong>NAME:</strong> {{ item.name }}</li>
                         <li style="text-align: justify;"><strong>CWE ID:</strong> {{ item.cweid }}</li>

@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Modify results to return in a specific format.">
+    <list default="true" id="04c65530-491c-4e39-b1ff-f290cad7f5da" name="Changes" comment="Display more detailed information regarding found weaknesses.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zap/tasks.py" beforeDir="false" afterPath="$PROJECT_DIR$/zap/tasks.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/zap/templates/zap/status.html" beforeDir="false" afterPath="$PROJECT_DIR$/zap/templates/zap/status.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/zap/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/zap/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,14 +131,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1738831388261</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Add test target URL and some debugging information.">
-      <option name="closed" value="true" />
-      <created>1739956246378</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1739956246379</updated>
     </task>
     <task id="LOCAL-00017" summary="Add fuzzy task to scan processes. Store task id in session.">
       <option name="closed" value="true" />
@@ -526,11 +516,18 @@
       <option name="project" value="LOCAL" />
       <updated>1740831172088</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Display more detailed information regarding found weaknesses.">
+      <option name="closed" value="true" />
+      <created>1740835649682</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1740835649682</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="add spider function." />
     <MESSAGE value="Add scan view in zap." />
     <MESSAGE value="Add scan url" />
     <MESSAGE value="Add views for scanning and redirecting." />
@@ -555,6 +552,7 @@
     <MESSAGE value="Adjust max-width of container." />
     <MESSAGE value="Fetch on the alerts for the current url being scanned." />
     <MESSAGE value="Modify results to return in a specific format." />
-    <option name="LAST_COMMIT_MESSAGE" value="Modify results to return in a specific format." />
+    <MESSAGE value="Display more detailed information regarding found weaknesses." />
+    <option name="LAST_COMMIT_MESSAGE" value="Display more detailed information regarding found weaknesses." />
   </component>
 </project>
