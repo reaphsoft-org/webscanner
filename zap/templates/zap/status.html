@@ -299,6 +299,14 @@
                                 </li>
                                 {% endfor %}
                             </ul>
+
+                            {% if item.cves|length > 9 %}
+                            <p style="margin-top: 5px;">
+                                <a href="#" target="_blank" style="color: #ffcc00; text-decoration: none; font-weight: bold;"> {# todo #}
+                                    See more...
+                                </a>
+                            </p>
+                            {% endif %}
                         </li>
                         <li style="text-align: justify;"><strong>SECURITY TAGs:</strong>
                                 <div style="text-align: left">
