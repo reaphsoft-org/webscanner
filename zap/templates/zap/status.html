@@ -288,6 +288,18 @@
                                 </tbody>
                             </table>
                         </li>
+                                                <!-- New CVES Section -->
+                        <li style="text-align: justify;"><strong>TAGGED CVES:</strong>
+                            <ul style="margin-top: 5px; padding-left: 20px;">
+                                {% for cve in item.cves %}
+                                <li>
+                                    <a href="https://nvd.nist.gov/vuln/detail/{{ cve }}" target="_blank" style="color: #ffcc00; text-decoration: none;">
+                                        {{ cve }}
+                                    </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
                         <li style="text-align: justify;"><strong>SECURITY TAGs:</strong>
                                 <div style="text-align: left">
                                 {% for tag in item.tags %}
