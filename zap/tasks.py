@@ -50,8 +50,10 @@ def passive_scan_results(target_url):
     for group, items in groups:
         _list = list(items)
         _sample = _list[0]
+        cwe_id = _sample['cweid']
+        cves = get_cves_by_cwe(cwe_id, page_size=10).object_list
         dic = {"name": _sample["name"], "cweid": _sample["cweid"], "description": _sample["description"],
-               "risk": _sample["risk"], "solution": _sample["solution"],
+               "risk": _sample["risk"], "solution": _sample["solution"], "cves": cves,
                "urls": set([(i["confidence"], i["url"]) for i in _list]), "tags": list(_sample["tags"].items())}
         results.append(dic)
     non_cwe.sort(key=lambda x: x["name"])
@@ -61,11 +63,12 @@ def passive_scan_results(target_url):
         _list = list(items)
         _sample = _list[0]
         dic = {"name": _sample["name"], "cweid": _sample["cweid"], "description": _sample["description"],
-               "risk": _sample["risk"], "solution": _sample["solution"],
+               "risk": _sample["risk"], "solution": _sample["solution"], "cves": [],
                "urls": set([(i["confidence"], i["url"]) for i in _list]), "tags": list(_sample["tags"].items())}
         results.append(dic)
 
     return results
+
 
 def get_cves_by_cwe(cwe_id, page_number=1, page_size=50):
     query = CVE.objects.filter(
