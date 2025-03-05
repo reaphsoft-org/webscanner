@@ -2,9 +2,12 @@
 import time
 from itertools import groupby
 
+from django.core.paginator import Paginator
 from requests.exceptions import ProxyError
 from zapv2 import ZAPv2
 from django.conf import settings
+
+from .models import CVE
 
 zap = ZAPv2(apikey=settings.ZAP_API_KEY)
 
@@ -63,3 +66,12 @@ def passive_scan_results(target_url):
         results.append(dic)
 
     return results
+
+def get_cves_by_cwe(cwe_id, page_number=1, page_size=50):
+    query = CVE.objects.filter(
+        # weaknesses__contains=[{"description": [{"value": f"CWE-{cwe_id}"}]}] # this targets both primary and secondary
+        weaknesses__contains=[{"type": "Primary", "description": [{"value": f"CWE-{cwe_id}"}]}] # this targets only primary.
+        )
+    query = query.order_by("-cve_id")  # Sort in descending order by CVE ID
+    paginator = Paginator(query, page_size)
+    return paginator.get_page(page_number)
