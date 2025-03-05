@@ -51,7 +51,7 @@ def passive_scan_results(target_url):
         _list = list(items)
         _sample = _list[0]
         cwe_id = _sample['cweid']
-        cves = get_cves_by_cwe(cwe_id, page_size=10).object_list
+        cves = get_cves_by_cwe(cwe_id, page_size=10).object_list.values_list("cve_id", flat=True)
         dic = {"name": _sample["name"], "cweid": _sample["cweid"], "description": _sample["description"],
                "risk": _sample["risk"], "solution": _sample["solution"], "cves": cves,
                "urls": set([(i["confidence"], i["url"]) for i in _list]), "tags": list(_sample["tags"].items())}
