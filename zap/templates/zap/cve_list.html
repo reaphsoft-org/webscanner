@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CVEs for CWE-{{ cwe_id }}</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Navbar */
+        .navbar {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Content Wrapper */
+        .content-wrapper {
+            margin-top: 70px; /* Adjusted to prevent navbar overlap */
+            width: 60%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .cve-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .cve-list li {
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            margin: 8px 0;
+            border-radius: 5px;
+            text-align: left;
+            transition: background 0.3s ease;
+        }
+
+        .cve-list li a {
+            text-decoration: none;
+            color: #ffcc00;
+            font-weight: bold;
+            display: block;
+        }
+
+        .cve-list li:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .pagination button {
+            background: #ffa502;
+            border: none;
+            color: white;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            min-width: 80px;
+        }
+
+        .pagination button:hover {
+            background: #ff7f00;
+        }
+
+        .pagination button:disabled {
+            background: rgba(255, 255, 255, 0.3);
+            cursor: not-allowed;
+            visibility: hidden;
+        }
+
+        .pagination span {
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content-wrapper {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    {% include 'zap/nav.html' %}
+
+    <div class="content-wrapper">
+        <h1>CVEs for CWE-{{ cwe_id }}</h1>
+
+        {% if cves %}
+        <ul class="cve-list">
+            {% for cve in cves %}
+            <li>
+                <a href="https://nvd.nist.gov/vuln/detail/{{ cve }}" target="_blank">{{ cve }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <button onclick="navigate({{ prev_page }})" {% if not prev_page %}disabled{% endif %}>Previous</button>
+
+            <span>Page {{ page }} of {{ total_pages }}</span>
+
+            <button onclick="navigate({{ next_page }})" {% if not next_page %}disabled{% endif %}>Next</button>
+        </div>
+
+        {% else %}
+        <p>No CVEs found for this CWE ID.</p>
+        {% endif %}
+    </div>
+
+    <script>
+        function navigate(page) {
+            window.location.href = "?page=" + page;
+        }
+    </script>
+
+</body>
+</html>

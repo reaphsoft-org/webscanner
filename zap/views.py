@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from requests.exceptions import ProxyError
 
-from .tasks import spider, zap, passive_scan_results
+from .tasks import spider, zap, passive_scan_results, get_cves_by_cwe
 
 
 # Create your views here.
@@ -69,3 +69,21 @@ def clear(request):
         zap.spider.stop(scan_id)
     request.session.flush()
     return render(request, "zap/clear.html")
+
+def cves(request, cwe):
+    """"""
+    page = int(request.GET.get('page', 1))
+    if page < 1:
+        page = 1
+    page_size = 100
+    paginator = get_cves_by_cwe(cwe, page, page_size)
+    context = {
+        'cwe_id': cwe,
+        'cves': paginator.object_list,
+        'page': page,
+        'total_pages': paginator.paginator.num_pages,
+        'prev_page': page - 1 if page > 1 else None,
+        'next_page': page + 1 if page < paginator.paginator.num_pages else None
+    }
+
+    return render(request, 'zap/cve_list.html', context)

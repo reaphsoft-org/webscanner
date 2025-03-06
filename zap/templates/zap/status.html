@@ -302,7 +302,7 @@
 
                             {% if item.cves|length > 9 %}
                             <p style="margin-top: 5px;">
-                                <a href="#" target="_blank" style="color: #ffcc00; text-decoration: none; font-weight: bold;"> {# todo #}
+                                <a href="{% url 'zap:cves' %}" target="_blank" style="color: #ffcc00; text-decoration: none; font-weight: bold;"> {# todo #}
                                     See more...
                                 </a>
                             </p>

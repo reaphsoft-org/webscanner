@@ -7,4 +7,5 @@ urlpatterns = [
     path('scan/', views.scan, name="scan"),
     path('scan-status/', views.status, name="status"),
     path('clear/', views.clear, name="clear"),
+    path('cves/<str:cwe>/', views.cves, name="cves"),
 ]
