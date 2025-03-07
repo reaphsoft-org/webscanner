@@ -1,7 +1,10 @@
 #!/usr/bin/env python
+import socket
 import time
 from itertools import groupby
 
+import requests
+import whois
 from django.core.paginator import Paginator
 from requests.exceptions import ProxyError
 from zapv2 import ZAPv2
@@ -78,3 +81,39 @@ def get_cves_by_cwe(cwe_id, page_number=1, page_size=50):
     query = query.order_by("-cve_id")  # Sort in descending order by CVE ID
     paginator = Paginator(query, page_size)
     return paginator.get_page(page_number)
+
+
+def get_hosting_info(url):
+    # Ensure the URL is in the correct format
+    if not url.startswith("http"):
+        url = "http://" + url  # Add http if missing
+
+    domain = url.split("//")[-1].split("/")[0]  # Extract domain name
+
+    # Get the domain's WHOIS info
+    try:
+        w = whois.whois(domain)
+        registrar = w.registrar  # Hosting provider or domain registrar
+    except Exception:
+        registrar = "Could not retrieve WHOIS data"
+
+    # Get the IP address of the domain
+    try:
+        ip_address = socket.gethostbyname(domain)
+    except Exception:
+        ip_address = "Could not resolve IP"
+
+    # Get IP-based hosting info
+    try:
+        response = requests.get(f"https://ipinfo.io/{ip_address}/json")
+        hosting_info = response.json()
+        hosting_provider = hosting_info.get("org", "Unknown")
+    except Exception:
+        hosting_provider = "Could not retrieve hosting provider"
+
+    return {
+        "domain": domain,
+        "ip_address": ip_address,
+        "registrar": registrar,
+        "hosting_provider": hosting_provider,
+    }
