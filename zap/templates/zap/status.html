@@ -137,6 +137,38 @@
             margin-top: 5px;
         }
 
+        /* Passive Scan Results - Cards */
+        .result-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .result-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            text-align: center;
+            color: #ffcc00;
+        }
+
+        .result-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .result-card ul li {
+            padding: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            word-wrap: break-word;
+        }
+
+        .result-card ul li:last-child {
+            border-bottom: none;
+        }
+
         /* Hosting Info Styles */
         .hosting-info {
             padding: 10px;
@@ -156,6 +188,13 @@
             text-decoration: underline;
         }
 
+        .tag-link{
+            color: #ffcc00;
+            text-underline-offset: 4px;
+            text-decoration-color: #ffcc00;
+        }
+
+        /* Responsive */
         @media (max-width: 500px) {
             h1 {
                 font-size: 1.8rem;
