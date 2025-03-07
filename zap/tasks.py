@@ -94,8 +94,21 @@ def get_hosting_info(url):
     try:
         w = whois.whois(domain)
         registrar = w.registrar  # Hosting provider or domain registrar
+        registrar_url = w.registrar_url
+        name_servers = w.name_servers
+        if len(name_servers) > 0:
+            server = name_servers[0]
+            index = server.find(".")
+            if index >= 0:
+                web_host = server[index+1:].lower()
+            else:
+                web_host = server.lower()
+        else:
+            web_host = "Unable to fetch web hosting provider"
     except Exception:
         registrar = "Could not retrieve WHOIS data"
+        registrar_url = "Could not retrieve registrar URL"
+        web_host = "Unable to fetch web hosting provider"
 
     # Get the IP address of the domain
     try:
@@ -103,17 +116,10 @@ def get_hosting_info(url):
     except Exception:
         ip_address = "Could not resolve IP"
 
-    # Get IP-based hosting info
-    try:
-        response = requests.get(f"https://ipinfo.io/{ip_address}/json")
-        hosting_info = response.json()
-        hosting_provider = hosting_info.get("org", "Unknown")
-    except Exception:
-        hosting_provider = "Could not retrieve hosting provider"
-
     return {
         "domain": domain,
         "ip_address": ip_address,
         "registrar": registrar,
-        "hosting_provider": hosting_provider,
+        "registrar_url": registrar_url,
+        "web_host": web_host,
     }

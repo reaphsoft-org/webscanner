@@ -173,3 +173,4 @@ venv.env
 zap_local_test.py
 workspace.xml
 output.html
+/local_test.py
