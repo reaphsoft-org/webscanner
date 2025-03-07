@@ -19,6 +19,7 @@ kombu==5.4.2
 prompt_toolkit==3.0.50
 psycopg2-binary==2.9.7
 python-dateutil==2.9.0.post0
+python-whois==0.9.5
 requests==2.32.3
 six==1.17.0
 soupsieve==2.6
