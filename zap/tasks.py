@@ -1,14 +1,14 @@
 #!/usr/bin/env python
+import re
 import socket
 import time
 from itertools import groupby
 
-import requests
 import whois
+from django.conf import settings
 from django.core.paginator import Paginator
 from requests.exceptions import ProxyError
 from zapv2 import ZAPv2
-from django.conf import settings
 
 from .models import CVE
 
@@ -83,6 +83,18 @@ def get_cves_by_cwe(cwe_id, page_number=1, page_size=50):
     return paginator.get_page(page_number)
 
 
+def extract_ip(url):
+    # Regex pattern to match protocol, IP address, and optional port
+    pattern = r"^(https?:\/\/)(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(:\d+)?(\/.*)?$"
+
+    match = re.match(pattern, url)
+    if match:
+        ip = match.group(2)  # Extract the IP address
+        return True, ip
+
+    return False, None
+
+
 def get_hosting_info(url, session = None):
     # Ensure the URL is in the correct format
     if not url.startswith("http"):
@@ -114,7 +126,9 @@ def get_hosting_info(url, session = None):
     try:
         ip_address = socket.gethostbyname(domain)
     except Exception:
-        ip_address = "Could not resolve IP"
+        flag, ip_address = extract_ip(url)
+        if not flag:
+            ip_address = "Could not resolve IP"
 
     result = {
         "domain": domain,
