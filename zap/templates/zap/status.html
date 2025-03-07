@@ -293,11 +293,11 @@
             <div class="accordion-content" id="passive-accordion">
                 {% for item in passive_results %}
                 <div class="result-card">
-                    <h3>Weakness Result {{ forloop.counter }}</h3>
+                    <h3>CVE Overview {{ forloop.counter }}</h3>
                     <ul>
-                        <li style="text-align: justify;"><strong>NAME:</strong> {{ item.name }}</li>
-                        <li style="text-align: justify;"><strong>CWE ID:</strong> {{ item.cweid }}</li>
                         <li style="text-align: justify;"><strong>DESCRIPTION:</strong> {{ item.description }}</li>
+                        <li style="text-align: justify;"><strong>NAME:</strong> {{ item.name }}</li>
+                        <li style="text-align: justify;"><strong>CWE:</strong> <a href="https://cwe.mitre.org/data/definitions/{{ item.cweid }}.html">https://cwe.mitre.org/data/definitions/{{ item.cweid }}.html</a></li>
                         <li style="text-align: justify;"><strong>RISK:</strong> {{ item.risk }}</li>
                         <li style="text-align: justify;"><strong>SOLUTION:</strong> {{ item.solution }}</li>
                         <li style="text-align: justify;"><strong>AFFECTED URLs:</strong>
