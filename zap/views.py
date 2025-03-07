@@ -50,6 +50,13 @@ def status(request):
     results = []
     items_left = 0
     passive_results = []
+    hosting_info = {
+        "domain": "Running",
+        "ip_address": "Running",
+        "registrar": "Running",
+        "registrar_url": "Running",
+        "web_host": "Running",
+    }
 
     try:
         level = int(zap.spider.status(scan_id))
@@ -58,14 +65,16 @@ def status(request):
             items_left = int(zap.pscan.records_to_scan)
             if items_left == 0:
                 passive_results = passive_scan_results(target_url)
+            hosting_info = request.session.get("get_hosting_info", hosting_info)
 
     except ProxyError:
         level = 0
         message = ("We were unable to establish a connection while checking the status of your scan. "
                    "Please refresh the page or contact the admin.")
-    return render(request, "zap/status.html", {'level': level, 'results': results,
-                                               "error": message, "items_left": items_left,
-                                               "passive_results": passive_results})
+    context = {'level': level, 'results': results, "error": message, "items_left": items_left,
+               "passive_results": passive_results, "hosting_info": hosting_info
+               }
+    return render(request, "zap/status.html", context)
 
 def clear(request):
     """"""

@@ -19,6 +19,11 @@ celery -A web_scanner report | grep [BROKER]
 ### TODO
 1. When a scan is ongoing, do not initiate another scan
 2. Subsequently, tool should be able to discover the webhost running the website. 
+Resolve the Server (Webhost for the application)
+Make report to look like the format we are sent by Mr Ralph. 
+
+Implement zap docker
+Implement nmap docker if needed
 
 ## References
 1. [NIST NVD](https://nvd.nist.gov/developers/vulnerabilities)
