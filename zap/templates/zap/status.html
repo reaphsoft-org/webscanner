@@ -6,19 +6,19 @@
     <title>Scan Status</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap'); /* Digital font */
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
 
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            padding: 20px; /* Keeps spacing */
+            padding: 20px;
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: white;
             text-align: center;
-            min-height: 100vh; /* Allows scrolling */
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center; /* Centers content horizontally */
+            align-items: center;
         }
 
         .navbar {
@@ -47,18 +47,15 @@
             padding: 25px;
             border-radius: 10px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            width: 45%;  /* Default: 60% for larger screens */
-<!--            max-width: 554px;-->
+            width: 45%;
             margin-bottom: 20px;
         }
 
-        /* Responsive */
         @media (max-width: 1024px) {
             .container {
-                width: 90%; /* Adjust to 90% for smaller screens */
+                width: 90%;
             }
         }
-
 
         h1 {
             font-size: 2rem;
@@ -140,45 +137,25 @@
             margin-top: 5px;
         }
 
-        /* Passive Scan Results - Cards */
-        .result-card {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 8px;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        /* Hosting Info Styles */
+        .hosting-info {
+            padding: 10px;
+            text-align: left;
         }
 
-        .result-card h3 {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
-            text-align: center;
+        .hosting-info p {
+            margin: 5px 0;
+        }
+
+        .hosting-info a {
             color: #ffcc00;
+            text-decoration: none;
         }
 
-        .result-card ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+        .hosting-info a:hover {
+            text-decoration: underline;
         }
 
-        .result-card ul li {
-            padding: 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-            word-wrap: break-word;
-        }
-
-        .result-card ul li:last-child {
-            border-bottom: none;
-        }
-
-        .tag-link{
-            color: #ffcc00;
-            text-underline-offset: 4px;
-            text-decoration-color: #ffcc00;
-        }
-
-        /* Responsive */
         @media (max-width: 500px) {
             h1 {
                 font-size: 1.8rem;
@@ -205,9 +182,8 @@
 </head>
 <body>
 
-   {% include 'zap/nav.html' %}
+    {% include 'zap/nav.html' %}
 
-    <!-- Status Container -->
     <div class="container">
         {% if level < 100 %}
         <h1>Scan in Progress</h1>
@@ -222,10 +198,10 @@
             <span class="level">{{ level }}%</span>
         </div>
 
-        <!-- Error Message -->
-        {% if error %}<p class="error">{{ error }}</p>{% endif %}
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
 
-        <!-- Scan Results Accordion -->
         {% if results %}
         <div class="accordion">
             <div class="accordion-header" onclick="toggleAccordion('main-accordion')">📜 View Crawl Results</div>
@@ -239,7 +215,28 @@
         </div>
         {% endif %}
     </div>
-
+    {% if hosting_info %}
+    <div class="container">
+        <h1>Hosting Information</h1>
+        <div class="accordion">
+            <div class="accordion-header" onclick="toggleAccordion('hosting-accordion')">🌐 View Hosting Info</div>
+            <div class="accordion-content" id="hosting-accordion">
+                <div class="hosting-info">
+                    <p><strong>Domain:</strong> {{ hosting_info.domain }}</p>
+                    <p><strong>IP Address:</strong> {{ hosting_info.ip_address }}</p>
+                    <p><strong>Registrar:</strong> {{ hosting_info.registrar }}</p>
+                    <p><strong>Web Host:</strong> {{ hosting_info.web_host }}</p>
+                    <p><strong>Registrar URLs:</strong></p>
+                    <ul>
+                        {% for url in hosting_info.registrar_url %}
+                        <li><a href="{{ url }}" target="_blank">{{ url }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
     <!-- Passive Scan Status -->
     <div class="container">
         <h1>Passive Scan</h1>

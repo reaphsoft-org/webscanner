@@ -107,7 +107,7 @@ def get_hosting_info(url, session = None):
             web_host = "Unable to fetch web hosting provider"
     except Exception:
         registrar = "Could not retrieve WHOIS data"
-        registrar_url = "Could not retrieve registrar URL"
+        registrar_url = ["Could not retrieve registrar URL"]
         web_host = "Unable to fetch web hosting provider"
 
     # Get the IP address of the domain

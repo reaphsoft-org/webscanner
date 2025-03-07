@@ -54,7 +54,7 @@ def status(request):
         "domain": "Running",
         "ip_address": "Running",
         "registrar": "Running",
-        "registrar_url": "Running",
+        "registrar_url": ["Running"],
         "web_host": "Running",
     }
 
