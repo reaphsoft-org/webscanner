@@ -1,8 +1,10 @@
+import threading
+
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from requests.exceptions import ProxyError
 
-from .tasks import spider, zap, passive_scan_results, get_cves_by_cwe
+from .tasks import spider, zap, passive_scan_results, get_cves_by_cwe, get_hosting_info
 
 
 # Create your views here.
@@ -28,6 +30,9 @@ def scan(request):
         request.session['zap_error'] = message
         request.session.modified = True
         return redirect("zap:home")
+
+    thread = threading.Thread(target=get_hosting_info, args=(url, request.session))
+    thread.start()
 
     request.session['url'] = url
     request.session['zap_scan_id'] = scan_id

@@ -83,7 +83,7 @@ def get_cves_by_cwe(cwe_id, page_number=1, page_size=50):
     return paginator.get_page(page_number)
 
 
-def get_hosting_info(url):
+def get_hosting_info(url, session = None):
     # Ensure the URL is in the correct format
     if not url.startswith("http"):
         url = "http://" + url  # Add http if missing
@@ -116,10 +116,16 @@ def get_hosting_info(url):
     except Exception:
         ip_address = "Could not resolve IP"
 
-    return {
+    result = {
         "domain": domain,
         "ip_address": ip_address,
         "registrar": registrar,
         "registrar_url": registrar_url,
         "web_host": web_host,
     }
+
+    if session:
+        session["get_hosting_info"] = result
+        session.save()
+
+    return result
