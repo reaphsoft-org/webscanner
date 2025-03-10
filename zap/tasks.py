@@ -155,6 +155,6 @@ def spacy_compare(description, cwe_id):
     similarities = [(cve, zap_doc.similarity(nlp(cve.descriptions[0]["value"]))) for cve in query]
     similarities.sort(key=lambda x: x[1], reverse=True)
     if len(similarities) > 0:
-        return similarities[0]
+        return similarities[0][0]
     else:
         return None

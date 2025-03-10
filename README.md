@@ -26,6 +26,7 @@ pip install spacy
 python -m spacy download en_core_web_md 
 ```
 `en_core_web_md` is about 34MB
+`en_core_web_lg` is about 400MB
 
 ## References
 1. [NIST NVD](https://nvd.nist.gov/developers/vulnerabilities)
