@@ -48,7 +48,7 @@ def passive_scan_results(target_url):
     cwe = list(filter(lambda i: i["cweid"] != "-1", alerts))
     non_cwe = list(filter(lambda i: i["cweid"] == "-1", alerts))
     cwe.sort(key=lambda x: int(x["cweid"]))
-    groups = groupby(cwe, lambda i: int(i["cweid"]))
+    groups = groupby(cwe, lambda i: i["name"])
 
     results = []
     for group, items in groups:
