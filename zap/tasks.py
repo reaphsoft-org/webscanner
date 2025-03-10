@@ -4,6 +4,7 @@ import socket
 import time
 from itertools import groupby
 
+import spacy
 import whois
 from django.conf import settings
 from django.core.paginator import Paginator
@@ -143,3 +144,17 @@ def get_hosting_info(url, session = None):
         session.save()
 
     return result
+
+
+def spacy_compare(description, cwe_id):
+    nlp = spacy.load("en_core_web_md")
+    query = CVE.objects.filter(
+        weaknesses__contains=[{"type": "Primary", "description": [{"value": f"CWE-{cwe_id}"}]}] # this targets only primary.
+        )
+    zap_doc = nlp(description)
+    similarities = [(cve, zap_doc.similarity(nlp(cve.descriptions[0]["value"]))) for cve in query]
+    similarities.sort(key=lambda x: x[1], reverse=True)
+    if len(similarities) > 0:
+        return similarities[0]
+    else:
+        return None
