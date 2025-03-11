@@ -108,6 +108,8 @@ def get_hosting_info(url, session = None):
         w = whois.whois(domain)
         registrar = w.registrar  # Hosting provider or domain registrar
         registrar_url = w.registrar_url
+        if type(registrar_url) == type(str):
+            registrar_url = [registrar_url]
         name_servers = w.name_servers
         if len(name_servers) > 0:
             server = name_servers[0]
