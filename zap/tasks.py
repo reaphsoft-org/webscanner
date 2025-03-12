@@ -77,7 +77,8 @@ def passive_scan_results(target_url):
 def get_cves_by_cwe(cwe_id, page_number=1, page_size=50):
     query = CVE.objects.filter(
         # weaknesses__contains=[{"description": [{"value": f"CWE-{cwe_id}"}]}] # this targets both primary and secondary
-        weaknesses__contains=[{"type": "Primary", "description": [{"value": f"CWE-{cwe_id}"}]}] # this targets only primary.
+        weaknesses__contains=[{"type": "Primary", "description": [{"value": f"CWE-{cwe_id}"}]}], # this targets only primary.
+        metrics__contains = {"cvssMetricV30": []}, # Ensures cvssMetricV30 exists
         )
     query = query.order_by("-cve_id")  # Sort in descending order by CVE ID
     paginator = Paginator(query, page_size)
