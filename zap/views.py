@@ -56,6 +56,8 @@ def status(request):
         "registrar": "Running",
         "registrar_url": ["Running"],
         "web_host": "Running",
+        "hostname": "Running",
+        "host_organization": "Running"
     }
 
     try:

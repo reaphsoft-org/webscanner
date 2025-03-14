@@ -5,6 +5,7 @@ import time
 from itertools import groupby
 from random import choice
 
+import ipinfo
 import spacy
 import whois
 from django.conf import settings
@@ -129,7 +130,7 @@ def get_hosting_info(url, session = None):
         if type(registrar_url) == type(str):
             registrar_url = [registrar_url]
         name_servers = w.name_servers
-        if len(name_servers) > 0:
+        if type(name_servers) != type(list):
             server = name_servers[0]
             index = server.find(".")
             if index >= 0:
@@ -151,12 +152,19 @@ def get_hosting_info(url, session = None):
         if not flag:
             ip_address = "Could not resolve IP"
 
+    if ip_address != "Could not resolve IP" and ip_address != "127.0.0.1":
+        hostname, organization = get_ip_info(ip_address)
+    else:
+        hostname, organization = "Data not found", "Data not found"
+
     result = {
         "domain": domain,
         "ip_address": ip_address,
         "registrar": registrar,
         "registrar_url": registrar_url,
         "web_host": web_host,
+        "hostname": hostname,
+        "host_organization": organization
     }
 
     if session:
@@ -164,6 +172,16 @@ def get_hosting_info(url, session = None):
         session.save()
 
     return result
+
+
+def get_ip_info(ip_address):
+    access_token = settings.IP_INFO_KEY
+    handler = ipinfo.getHandler(access_token)
+    try:
+        details = handler.getDetails(ip_address)
+        return details.hostname, details.org
+    except Exception:
+        return "Data not found", "Data not found"
 
 
 def spacy_compare(description, cwe_id):
