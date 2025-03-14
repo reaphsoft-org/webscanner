@@ -38,3 +38,5 @@ python -m spacy download en_core_web_md
 7. [ZAP Alert Details](https://www.zaproxy.org/docs/alerts/)
 8. [Sample CVE Data](https://services.nvd.nist.gov/rest/json/cves/2.0?resultsPerPage=2)
 9. [NIST NVD CVE Schema](https://csrc.nist.gov/schema/nvd/api/2.0/cve_api_json_2.0.schema)
+10. [IPInfo](https://ipinfo.io/)
+11. [IPInfo Git](https://github.com/ipinfo/python)
