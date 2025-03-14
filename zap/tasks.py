@@ -67,7 +67,7 @@ def passive_scan_results(target_url):
         print(f"object list, {object_list}")
         cves = object_list.values_list("cve_id", flat=True)
         dic = {"name": _sample["name"], "cweid": _sample["cweid"], "description": _sample["description"],
-               "risk": _sample["risk"], "solution": _sample["solution"], "cves": cves, "cve": matching_cve,
+               "risk": _sample["risk"], "solution": _sample["solution"], "cves": cves, "matching_cve": matching_cve,
                "urls": set([(i["confidence"], i["url"]) for i in _list]), "tags": list(_sample["tags"].items())}
         results.append(dic)
     non_cwe.sort(key=lambda x: x["name"])
@@ -77,7 +77,7 @@ def passive_scan_results(target_url):
         _list = list(items)
         _sample = _list[0]
         dic = {"name": _sample["name"], "cweid": _sample["cweid"], "description": _sample["description"],
-               "risk": _sample["risk"], "solution": _sample["solution"], "cves": [], "cve": None,
+               "risk": _sample["risk"], "solution": _sample["solution"], "cves": [], "matching_cve": None,
                "urls": set([(i["confidence"], i["url"]) for i in _list]), "tags": list(_sample["tags"].items())}
         results.append(dic)
 
