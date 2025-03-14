@@ -17,7 +17,7 @@ data = {
     "10020-2": "X-Frame-Options",
     "10020-3": "X-Frame-Options",
     "10020-4": "X-Frame-Options",
-    "10021": "X-Content-Type-Options",
+    "10021": "", # X-Content-Type-Options
     "10023": "messages",
     "10024": "sensitive",
     "10025": "sensitive",
@@ -46,9 +46,9 @@ data = {
     "10036-1": "Server",
     "10036-2": "Server",
     "10037": "header",
-    "10038-1": "Content Security Policy",
-    "10038-2": "Content Security Policy",
-    "10038-3": "Content Security Policy",
+    "10038-1": "", # Content Security Policy
+    "10038-2": "", # Content Security Policy
+    "10038-3": "", # Content Security Policy
     "10039": "header",
     "10040": "mixed content",
     "10041": "HTTPS form",
