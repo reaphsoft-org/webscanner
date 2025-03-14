@@ -61,13 +61,13 @@ def passive_scan_results(target_url):
         keyword = keywords.data.get(alert_ref, "")
         object_list = get_cves_by_cwe(cwe_id, page_size=10, keyword=keyword).object_list
         if len(object_list) > 0:
-            matching_cve = choice(object_list)
+            matching_cve = choice(object_list).to_dict()
         else:
             matching_cve = None
-        cves = object_list.values_list("cve_id", flat=True)
+        cves = list(object_list.values_list("cve_id", flat=True))
         dic = {"name": _sample["name"], "cweid": _sample["cweid"], "description": _sample["description"],
                "risk": _sample["risk"], "solution": _sample["solution"], "cves": cves, "matching_cve": matching_cve,
-               "urls": set([(i["confidence"], i["url"]) for i in _list]), "tags": list(_sample["tags"].items())}
+               "urls": list(set([(i["confidence"], i["url"]) for i in _list])), "tags": list(_sample["tags"].items())}
         results.append(dic)
     non_cwe.sort(key=lambda x: x["name"])
     groups2 = groupby(non_cwe, lambda i: i["name"])
@@ -77,7 +77,7 @@ def passive_scan_results(target_url):
         _sample = _list[0]
         dic = {"name": _sample["name"], "cweid": _sample["cweid"], "description": _sample["description"],
                "risk": _sample["risk"], "solution": _sample["solution"], "cves": [], "matching_cve": None,
-               "urls": set([(i["confidence"], i["url"]) for i in _list]), "tags": list(_sample["tags"].items())}
+               "urls": list(set([(i["confidence"], i["url"]) for i in _list])), "tags": list(_sample["tags"].items())}
         results.append(dic)
 
     return results

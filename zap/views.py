@@ -64,7 +64,10 @@ def status(request):
         if level >= 100:
             items_left = int(zap.pscan.records_to_scan)
             if items_left == 0:
-                passive_results = passive_scan_results(target_url)
+                passive_results = request.session.get("passive_results", None)
+                if not passive_results:
+                    passive_results = passive_scan_results(target_url)
+                    request.session['passive_results'] = passive_results
             hosting_info = request.session.get("get_hosting_info", hosting_info)
 
     except ProxyError:

@@ -29,3 +29,30 @@ class CVE(models.Model):
 
     def __str__(self):
         return self.cve_id
+
+    def to_dict(self):
+        return {
+            "cve_id": self.cve_id,
+            "source_identifier": self.source_identifier,
+            "vuln_status": self.vuln_status,
+            "published_date": self.published_date.isoformat() if self.published_date else None,
+            "last_modified_date": self.last_modified_date.isoformat() if self.last_modified_date else None,
+
+            "evaluator_comment": self.evaluator_comment,
+            "evaluator_solution": self.evaluator_solution,
+            "evaluator_impact": self.evaluator_impact,
+
+            "cisa_exploit_add": self.cisa_exploit_add.isoformat() if self.cisa_exploit_add else None,
+            "cisa_action_due": self.cisa_action_due.isoformat() if self.cisa_action_due else None,
+            "cisa_required_action": self.cisa_required_action,
+            "cisa_vulnerability_name": self.cisa_vulnerability_name,
+
+            "cve_tags": self.cve_tags,
+            "descriptions": self.descriptions,
+            "references": self.references,
+            "metrics": self.metrics,
+            "weaknesses": self.weaknesses,
+            "configurations": self.configurations,
+            "vendor_comments": self.vendor_comments,
+        }
+
