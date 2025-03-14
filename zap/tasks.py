@@ -64,7 +64,6 @@ def passive_scan_results(target_url):
             matching_cve = choice(object_list)
         else:
             matching_cve = None
-        print(f"object list, {object_list}")
         cves = object_list.values_list("cve_id", flat=True)
         dic = {"name": _sample["name"], "cweid": _sample["cweid"], "description": _sample["description"],
                "risk": _sample["risk"], "solution": _sample["solution"], "cves": cves, "matching_cve": matching_cve,
