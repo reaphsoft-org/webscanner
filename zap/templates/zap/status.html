@@ -305,9 +305,9 @@
                         <li style="text-align: justify;"><strong>CWE:</strong> <a href="https://cwe.mitre.org/data/definitions/{{ item.cweid }}.html">https://cwe.mitre.org/data/definitions/{{ item.cweid }}.html</a></li>
                         <li style="text-align: justify;"><strong>RISK:</strong> {{ item.risk }}</li>
                         <li style="text-align: justify;"><strong>SOLUTION:</strong> {{ item.solution }}</li>
-                        <li style="text-align: justify;"><strong>CREATION DATE:</strong> NA</li>
-                        <li style="text-align: justify;"><strong>LAST MODIFIED DATE:</strong> NA</li>
-                        <li style="text-align: justify;"><strong>CVSS SEVERITY:</strong> NA</li>
+                        <li style="text-align: justify;"><strong>CREATION DATE:</strong> {% if item.matching_cve %}{{ item.matching_cve.published_date }} {% else %}No Match{% endif %}</li>
+                        <li style="text-align: justify;"><strong>LAST MODIFIED DATE:</strong> {% if item.matching_cve %}{{ item.matching_cve.last_modified_date }} {% else %}No Match{% endif %}</li>
+                        <li style="text-align: justify;"><strong>CVSS SEVERITY:</strong> {% if item.matching_cve %}{{ item.matching_cve.metrics.cvssMetricV30.0 }} {% else %}No Match{% endif %}</li>
                         <li style="text-align: justify;"><strong>AFFECTED URLs:</strong>
                             <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
                                 <thead>
