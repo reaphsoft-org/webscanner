@@ -3,6 +3,7 @@ import re
 import socket
 import time
 from itertools import groupby
+from random import choice
 
 import spacy
 import whois
@@ -11,6 +12,7 @@ from django.core.paginator import Paginator
 from requests.exceptions import ProxyError
 from zapv2 import ZAPv2
 
+from . import keywords
 from .models import CVE
 
 zap = ZAPv2(apikey=settings.ZAP_API_KEY)
@@ -55,9 +57,17 @@ def passive_scan_results(target_url):
         _list = list(items)
         _sample = _list[0]
         cwe_id = _sample['cweid']
-        cves = get_cves_by_cwe(cwe_id, page_size=10).object_list.values_list("cve_id", flat=True)
+        alert_ref = _sample['alertRef']
+        keyword = keywords.data.get(alert_ref, "")
+        object_list = get_cves_by_cwe(cwe_id, page_size=10, keyword=keyword).object_list
+        if len(object_list) > 0:
+            matching_cve = choice(object_list)
+        else:
+            matching_cve = None
+        print(f"object list, {object_list}")
+        cves = object_list.values_list("cve_id", flat=True)
         dic = {"name": _sample["name"], "cweid": _sample["cweid"], "description": _sample["description"],
-               "risk": _sample["risk"], "solution": _sample["solution"], "cves": cves,
+               "risk": _sample["risk"], "solution": _sample["solution"], "cves": cves, "cve": matching_cve,
                "urls": set([(i["confidence"], i["url"]) for i in _list]), "tags": list(_sample["tags"].items())}
         results.append(dic)
     non_cwe.sort(key=lambda x: x["name"])
@@ -67,7 +77,7 @@ def passive_scan_results(target_url):
         _list = list(items)
         _sample = _list[0]
         dic = {"name": _sample["name"], "cweid": _sample["cweid"], "description": _sample["description"],
-               "risk": _sample["risk"], "solution": _sample["solution"], "cves": [],
+               "risk": _sample["risk"], "solution": _sample["solution"], "cves": [], "cve": None,
                "urls": set([(i["confidence"], i["url"]) for i in _list]), "tags": list(_sample["tags"].items())}
         results.append(dic)
 
@@ -75,15 +85,19 @@ def passive_scan_results(target_url):
 
 
 def get_cves_by_cwe(cwe_id, page_number=1, page_size=50, keyword=""):
-    query = CVE.objects.filter(
+    original_query = CVE.objects.filter(
         # weaknesses__contains=[{"description": [{"value": f"CWE-{cwe_id}"}]}] # this targets both primary and secondary
-        weaknesses__contains=[{"type": "Primary", "description": [{"value": f"CWE-{cwe_id}"}]}], # this targets only primary.
-        metrics__contains = {"cvssMetricV30": []}, # Ensures cvssMetricV30 exists
-        ).filter(
+        weaknesses__contains=[{"type": "Primary", "description": [{"value": f"CWE-{cwe_id}"}]}],
+        # this targets only primary.
+        metrics__contains={"cvssMetricV30": []},  # Ensures cvssMetricV30 exists
+    ).filter(
+        descriptions__icontains="web"
+    )
+    query = original_query.filter(
         descriptions__icontains=keyword
-        ).filter(
-            descriptions__icontains="web"
-        )
+    )
+    if query.count() < 1:
+        query = original_query
     query = query.order_by("-cve_id")  # Sort in descending order by CVE ID
     paginator = Paginator(query, page_size)
     return paginator.get_page(page_number)
