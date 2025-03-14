@@ -221,6 +221,36 @@
             .level {
                 font-size: 1.8rem;
             }
+            .cvss-metric {
+                background: #fff;
+                padding: 10px;
+                border-radius: 5px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                margin-top: 10px;
+                text-align: left;
+            }
+
+            .cvss-row {
+                display: flex;
+                justify-content: space-between;
+                padding: 5px 0;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            }
+
+            .cvss-row:last-child {
+                border-bottom: none;
+            }
+
+            .cvss-key {
+                font-weight: bold;
+                color: #333;
+            }
+
+            .cvss-value {
+                color: #555;
+                font-style: italic;
+            }
+
         }
     </style>
 </head>
@@ -307,7 +337,21 @@
                         <li style="text-align: justify;"><strong>SOLUTION:</strong> {{ item.solution }}</li>
                         <li style="text-align: justify;"><strong>CREATION DATE:</strong> {% if item.matching_cve %}{{ item.matching_cve.published_date }} {% else %}No Match{% endif %}</li>
                         <li style="text-align: justify;"><strong>LAST MODIFIED DATE:</strong> {% if item.matching_cve %}{{ item.matching_cve.last_modified_date }} {% else %}No Match{% endif %}</li>
-                        <li style="text-align: justify;"><strong>CVSS SEVERITY:</strong> {% if item.matching_cve %}{{ item.matching_cve.metrics.cvssMetricV30.0 }} {% else %}No Match{% endif %}</li>
+                        <li style="text-align: justify;">
+                            <strong>CVSS SEVERITY:</strong>
+                            {% if item.matching_cve %}
+                            <div class="cvss-metric">
+                                {% for key, value in item.matching_cve.metrics.cvssMetricV30.0.cvssData.items %}
+                                <div class="cvss-row">
+                                    <span class="cvss-key">{{ key|capfirst }}:</span>
+                                    <span class="cvss-value">{{ value }}</span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            No Match
+                            {% endif %}
+                        </li>
                         <li style="text-align: justify;"><strong>AFFECTED URLs:</strong>
                             <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
                                 <thead>
