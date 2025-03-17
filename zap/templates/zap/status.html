@@ -414,6 +414,13 @@
         {% endif %}
     </div>
 
+    <div class="container">
+        <h1>Actions</h1>
+        {% if items_left <= 0 %}
+        <h5>Passive scan completed.</h5>
+        {% endif %}
+    </div>
+
     <script>
         function toggleAccordion(id) {
             var content = document.getElementById(id);
