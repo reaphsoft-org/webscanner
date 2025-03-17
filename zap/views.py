@@ -221,7 +221,6 @@ def download_pdf(request, pk):
 
     return create_pdf(report)
 
-
 def create_pdf(report):
     template_name = "zap/report_template.html"
     context = {"report": report}

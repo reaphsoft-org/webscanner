@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scan Status</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            padding: 20px;
+            color: #000;
+            text-align: center;
+        }
+
+        .container {
+            background: #f8f8f8;
+            padding: 25px;
+            border-radius: 10px;
+            width: 80%;
+            margin: auto;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        h5 {
+            font-weight: 400;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .accordion {
+            text-align: left;
+            width: 100%;
+        }
+
+        .accordion-header {
+            background: #000;
+            color: white;
+            padding: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .accordion-content {
+            background: #f1f1f1;
+            padding: 10px;
+            margin-top: 5px;
+        }
+
+        .result-card {
+            background: #fff;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        .result-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .hosting-info p {
+            margin: 5px 0;
+            color: #333;
+        }
+
+        .hosting-info a {
+            color: black;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .hosting-info a:hover {
+            text-decoration: underline;
+            color: #555;
+        }
+
+        .footer {
+            margin-top: 20px;
+            padding: 10px;
+            background: #000;
+            color: white;
+            text-align: center;
+            font-size: 0.9rem;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <h2>Hello, here is your web scan report for {{ url }}</h2>
+
+    <div class="container">
+        <h1>Spider Scan</h1>
+        <div class="accordion">
+            <div class="accordion-header">📜 Crawl Results</div>
+            <div class="accordion-content">
+                <ul>
+                    {% for url in report.results %}
+                        <li>{{ url }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Hosting Information</h1>
+        <div class="accordion">
+            <div class="accordion-header">🌐 Hosting Info</div>
+            <div class="accordion-content">
+                <div class="hosting-info">
+                    <p><strong>Domain:</strong> {{ report.hosting_info.domain }}</p>
+                    <p><strong>IP Address:</strong> {{ report.hosting_info.ip_address }}</p>
+                    <p><strong>Hostname:</strong> {{ report.hosting_info.hostname }}</p>
+                    <p><strong>Host Organization:</strong> {{ report.hosting_info.host_organization }}</p>
+                    <p><strong>Registrar:</strong> {{ report.hosting_info.registrar }}</p>
+                    <p><strong>Web Host:</strong> {{ report.hosting_info.web_host }}</p>
+                    <p><strong>Registrar URLs:</strong></p>
+                    <ul>
+                        {% for url in report.hosting_info.registrar_url %}
+                        <li><a href="{{ url }}" target="_blank">{{ url }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1>Passive Scan</h1>
+        <div class="accordion">
+            <div class="accordion-header">📜 Passive Scan Results</div>
+            <div class="accordion-content">
+                {% for item in report.passive_results %}
+                <div class="result-card">
+                    <h3>CVE Overview {{ forloop.counter }}</h3>
+                    <ul>
+                        <li><strong>Description:</strong> {{ item.description }}</li>
+                        <li><strong>Name:</strong> {{ item.name }}</li>
+                        <li><strong>CWE:</strong> <a href="https://cwe.mitre.org/data/definitions/{{ item.cweid }}.html">CWE-{{ item.cweid }}</a></li>
+                        <li><strong>Risk:</strong> {{ item.risk }}</li>
+                        <li><strong>Solution:</strong> {{ item.solution }}</li>
+                        <li><strong>CVSS Severity:</strong> {% if item.matching_cve %}{{ item.matching_cve.metrics.cvssMetricV30.0.cvssData.baseScore }}{% else %}No Match{% endif %}</li>
+                        <li><strong>Affected URLs:</strong>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>URL</th>
+                                        <th>Confidence</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for url in item.urls %}
+                                    <tr>
+                                        <td>{{ forloop.counter }}</td>
+                                        <td>{{ url.1 }}</td>
+                                        <td>{{ url.0 }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </li>
+                        <li><strong>Tagged CVEs:</strong>
+                            <ul>
+                                {% for cve in item.cves %}
+                                <li><a href="https://nvd.nist.gov/vuln/detail/{{ cve }}" target="_blank">{{ cve }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2025 Reaphsoft.com. All rights reserved.
+    </div>
+
+</body>
+</html>
