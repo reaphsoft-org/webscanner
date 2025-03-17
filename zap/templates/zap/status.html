@@ -290,8 +290,56 @@
         .button-container button:hover {
             opacity: 0.8;
         }
-
     </style>
+    <style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .modal-content {
+        background-color: #fff;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 300px;
+        text-align: center;
+        border-radius: 8px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .modal-content input {
+        width: 90%;
+        padding: 8px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .modal-content button {
+        margin: 5px;
+        padding: 8px 12px;
+        border: none;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .modal-content button:nth-child(2) {
+        background: #4CAF50;
+        color: white;
+    }
+
+    .modal-content button:nth-child(3) {
+        background: #d9534f;
+        color: white;
+    }
+</style>
 </head>
 <body>
 
@@ -458,7 +506,7 @@
         {% if items_left <= 0 %}
         <h5>Some actions you can perform</h5>
         <div class="button-container">
-            <button onclick="saveAction()">Save Report</button>
+            <button id="save-btn">Save Report</button>
             <button onclick="downloadPDF()">Download PDF</button>
             <button onclick="sendEmail()">Send via Email</button>
         </div>
@@ -467,14 +515,63 @@
         {% endif %}
     </div>
 
+    <div id="emailModal" class="modal">
+        <div class="modal-content">
+            <h3>Enter Your Email</h3>
+            <input type="email" id="user-email" placeholder="Enter your email" required>
+            <button onclick="submitEmail()">Submit</button>
+            <button onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+
     <script>
         function toggleAccordion(id) {
             var content = document.getElementById(id);
             content.style.display = content.style.display === "block" ? "none" : "block";
         }
-        function saveAction() {}
         function downloadPDF() {}
         function sendEmail() {}
+    </script>
+    <script>
+        document.getElementById("save-btn").addEventListener("click", function() {
+            var userEmail = "{{ user_email|default:'' }}";
+            if (!userEmail) {
+                openModal();  // Show modal if no email found
+            } else {
+                saveReport(userEmail);  // Directly save report
+            }
+        });
+
+        function openModal() {
+            document.getElementById("emailModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("emailModal").style.display = "none";
+        }
+
+        function submitEmail() {
+            var email = document.getElementById("user-email").value;
+            if (email) {
+                closeModal();
+                saveReport(email);
+            } else {
+                alert("Please enter a valid email address.");
+            }
+        }
+
+        function saveReport(email) {
+            fetch(`/zap/save/report/?email=${encodeURIComponent(email)}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Report saved successfully!");
+                } else {
+                    alert("Error saving report.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
     </script>
 
 </body>
