@@ -56,3 +56,14 @@ class CVE(models.Model):
             "vendor_comments": self.vendor_comments,
         }
 
+
+class ScanData(models.Model):
+    email = models.EmailField()  # Stores the user's email address
+    datetime = models.DateTimeField(auto_now_add=True)  # Auto-stores date and time when the data is saved
+    url = models.URLField()  # Stores the scanned URL
+    results = models.JSONField(default=list)  # Stores a list of strings
+    hosting_info = models.JSONField(default=dict)  # Stores a dictionary with key-value pairs
+    passive_results = models.JSONField(default=list)  # Stores a list of dictionaries
+
+    def __str__(self):
+        return f"ScanData({self.email}, {self.url}, {self.datetime})"
