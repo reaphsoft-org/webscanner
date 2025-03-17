@@ -99,7 +99,7 @@
     <div class="container">
         <h1>Spider Scan</h1>
         <div class="accordion">
-            <div class="accordion-header">📜 View Crawl Results</div>
+            <div class="accordion-header">📜 Crawl Results</div>
             <div class="accordion-content">
                 <ul>
                     {% for url in report.results %}
@@ -113,7 +113,7 @@
     <div class="container">
         <h1>Hosting Information</h1>
         <div class="accordion">
-            <div class="accordion-header">🌐 View Hosting Info</div>
+            <div class="accordion-header">🌐 Hosting Info</div>
             <div class="accordion-content">
                 <div class="hosting-info">
                     <p><strong>Domain:</strong> {{ report.hosting_info.domain }}</p>
@@ -136,7 +136,7 @@
     <div class="container">
         <h1>Passive Scan</h1>
         <div class="accordion">
-            <div class="accordion-header">📜 View Passive Scan Results</div>
+            <div class="accordion-header">📜 Passive Scan Results</div>
             <div class="accordion-content">
                 {% for item in report.passive_results %}
                 <div class="result-card">
