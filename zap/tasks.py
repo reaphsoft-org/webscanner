@@ -27,7 +27,7 @@ for pattern in static_file_patterns:
 def spider(target_url):
     """"""
     try:
-        scan_id = zap.spider.scan(target_url, subtreeonly=True, maxchildren=15)
+        scan_id = zap.spider.scan(target_url, subtreeonly=True, maxchildren=30)
         return int(scan_id), ""
     except ProxyError:
         return -1, "Scanner was unable to connect to proxy."
