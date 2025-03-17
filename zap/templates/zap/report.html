@@ -259,7 +259,7 @@
             margin-top: 15px;
         }
 
-        .button-container button {
+        .button-container button, .button-container a {
             flex: 1; /* Makes buttons equal width */
             max-width: 150px; /* Optional: Limits the maximum width */
             padding: 10px 15px;
@@ -272,18 +272,17 @@
             text-align: center;
         }
 
+        .button-container a {
+            text-decoration: none
+        }
+
         .button-container button:nth-child(1) {
             background: #4CAF50;
             color: white;
         }
 
-        .button-container button:nth-child(2) {
+        .button-container a {
             background: #2196F3;
-            color: white;
-        }
-
-        .button-container button:nth-child(3) {
-            background: #FF9800;
             color: white;
         }
 
