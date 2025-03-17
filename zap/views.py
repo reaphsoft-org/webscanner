@@ -1,11 +1,14 @@
+import io
 import threading
 
 from django.core.paginator import Paginator
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
+from django.template.loader import render_to_string
 from django.urls import reverse
 from django.views.decorators.http import require_POST
 from requests.exceptions import ProxyError
+from xhtml2pdf import pisa
 
 from .models import ScanData
 from .tasks import spider, zap, passive_scan_results, get_cves_by_cwe, get_hosting_info
@@ -188,3 +191,45 @@ def view_report(request, pk):
     except ScanData.DoesNotExist:
         report = None
     return render(request, "zap/report.html", {"report": report})
+
+def generate_pdf(request):
+    # Load HTML template
+    template_name = "my_template.html"
+    context = {"name": "John Doe", "message": "This is an HTML-based PDF!"}
+    html_content = render_to_string(template_name, context)
+
+    # Create a PDF
+    pdf_file = io.BytesIO()
+    pisa_status = pisa.CreatePDF(io.BytesIO(html_content.encode("UTF-8")), pdf_file)
+
+    if pisa_status.err:
+        return HttpResponse("Error generating PDF", content_type="text/plain")
+
+    # Return response
+    pdf_file.seek(0)
+    return HttpResponse(pdf_file, content_type="application/pdf", headers={"Content-Disposition": 'attachment; filename="report.pdf"'})
+
+def download_pdf(request, pk):
+    email = request.session.get("user_email", "")
+    if not email:
+        return redirect(reverse("zap:history"))  # Redirect to the same page (or another view if needed)
+    # continue use email and pk to get report.
+    try:
+        report = ScanData.objects.get(email=email, pk=pk)
+    except ScanData.DoesNotExist:
+        return redirect(reverse("zap:history"))
+
+    template_name = "zap/report_template.html"
+    context = {"report": report}
+    html_content = render_to_string(template_name, context)
+
+    # Create a PDF
+    pdf_file = io.BytesIO()
+    pisa_status = pisa.CreatePDF(io.BytesIO(html_content.encode("UTF-8")), pdf_file)
+
+    if pisa_status.err:
+        return HttpResponse("Error generating PDF", content_type="text/plain")
+
+    # Return response
+    pdf_file.seek(0)
+    return HttpResponse(pdf_file, content_type="application/pdf", headers={"Content-Disposition": 'attachment; filename="report.pdf"'})

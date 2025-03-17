@@ -507,7 +507,7 @@
         <h5>Some actions you can perform</h5>
         <div class="button-container">
             <button id="save-btn">Save Report</button>
-            <button onclick="downloadPDF()">Download PDF</button>
+            <a href="{% url 'zap:download' %}">Download PDF</a>
             <button onclick="sendEmail()">Send via Email</button>
         </div>
         {% else %}
