@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #fff;
+            color: #000;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .navbar {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: black;
+            font-weight: 600;
+            padding: 10px 15px;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            background: #f8f8f8;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 45%;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                width: 90%;
+            }
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .email-form input {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .email-form button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            background: #2196F3;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .email-form button:hover {
+            background: #0b7dda;
+        }
+
+        .report-list {
+            text-align: left;
+            list-style: none;
+            padding: 0;
+        }
+
+        .report-list li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .pagination {
+            margin-top: 15px;
+        }
+
+        .pagination button {
+            padding: 8px 12px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 5px;
+            background: #000;
+            color: white;
+            cursor: pointer;
+        }
+
+        .pagination button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+    {% include 'zap/nav.html' %}
+
+    <div class="container">
+        {% if user_email %}
+            <h1>Your Reports</h1>
+            <ul class="report-list">
+                {% for report in reports %}
+                    <li><a href="{{ report.url }}" target="_blank">{{ report.name }}</a></li>
+                {% endfor %}
+            </ul>
+
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    <button onclick="window.location.href='?page={{ page_obj.previous_page_number }}'">Previous</button>
+                {% else %}
+                    <button disabled>Previous</button>
+                {% endif %}
+
+                {% if page_obj.has_next %}
+                    <button onclick="window.location.href='?page={{ page_obj.next_page_number }}'">Next</button>
+                {% else %}
+                    <button disabled>Next</button>
+                {% endif %}
+            </div>
+
+        {% else %}
+            <h1>Enter Your Email</h1>
+            <h4>Please supply your email address so we extract your saved reports.</h4>
+            <form class="email-form" method="post" action="{% url 'zap:history' %}">
+                {% csrf_token %}
+                <input type="email" name="email" placeholder="Enter your email" required>
+                <button type="submit">Submit</button>
+            </form>
+        {% endif %}
+    </div>
+
+</body>
+</html>

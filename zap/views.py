@@ -149,3 +149,4 @@ def save_report(request):
 
 def history(request):
     """"""
+    return render(request, "zap/reports.html")
