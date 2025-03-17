@@ -149,4 +149,5 @@ def save_report(request):
 
 def history(request):
     """"""
-    return render(request, "zap/reports.html")
+    email = request.session.get("user_email", "")
+    return render(request, "zap/reports.html", {'user_email': email})
