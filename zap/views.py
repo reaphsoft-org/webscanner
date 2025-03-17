@@ -133,12 +133,16 @@ def save_report(request):
     results = request.session.get("spider_results", [])
 
     # Save the report
-    ScanData.objects.create(
-        email=email,
-        url=target_url,
-        results=results,
-        hosting_info=hosting_info,
-        passive_results=passive_results
-    )
+    flag = request.session.get("saved_report", False)
+    if not flag:
+        ScanData.objects.create(
+            email=email,
+            url=target_url,
+            results=results,
+            hosting_info=hosting_info,
+            passive_results=passive_results
+        )
+        request.session["saved_report"] = True
+
 
     return JsonResponse({"success": True, "message": "Report saved successfully!"})
