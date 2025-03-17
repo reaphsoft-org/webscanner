@@ -133,7 +133,7 @@ def save_report(request):
     request.session["user_email"] = email
 
     target_url = request.session.get("url", "")
-    hosting_info = request.session.get("get_hosting_info", {})
+    hosting_info = request.session.get("get_hosting_info", dict())
     passive_results = request.session.get("passive_results", [])
     results = request.session.get("spider_results", [])
 
@@ -193,21 +193,21 @@ def view_report(request, pk):
     return render(request, "zap/report.html", {"report": report})
 
 def generate_pdf(request):
-    # Load HTML template
-    template_name = "my_template.html"
-    context = {"name": "John Doe", "message": "This is an HTML-based PDF!"}
-    html_content = render_to_string(template_name, context)
+    target_url = request.session.get("url", "")
+    hosting_info = request.session.get("get_hosting_info", dict())
+    passive_results = request.session.get("passive_results", [])
+    results = request.session.get("spider_results", [])
+    if not target_url or not hosting_info or not passive_results or not results:
+        return redirect("zap:status")
+    report = ScanData(
+        email="",
+        url=target_url,
+        results=results,
+        hosting_info=hosting_info,
+        passive_results=passive_results
+    )
 
-    # Create a PDF
-    pdf_file = io.BytesIO()
-    pisa_status = pisa.CreatePDF(io.BytesIO(html_content.encode("UTF-8")), pdf_file)
-
-    if pisa_status.err:
-        return HttpResponse("Error generating PDF", content_type="text/plain")
-
-    # Return response
-    pdf_file.seek(0)
-    return HttpResponse(pdf_file, content_type="application/pdf", headers={"Content-Disposition": 'attachment; filename="report.pdf"'})
+    return create_pdf(report)
 
 def download_pdf(request, pk):
     email = request.session.get("user_email", "")
@@ -219,17 +219,19 @@ def download_pdf(request, pk):
     except ScanData.DoesNotExist:
         return redirect(reverse("zap:history"))
 
+    return create_pdf(report)
+
+
+def create_pdf(report):
     template_name = "zap/report_template.html"
     context = {"report": report}
     html_content = render_to_string(template_name, context)
-
     # Create a PDF
     pdf_file = io.BytesIO()
     pisa_status = pisa.CreatePDF(io.BytesIO(html_content.encode("UTF-8")), pdf_file)
-
     if pisa_status.err:
         return HttpResponse("Error generating PDF", content_type="text/plain")
-
     # Return response
     pdf_file.seek(0)
-    return HttpResponse(pdf_file, content_type="application/pdf", headers={"Content-Disposition": 'attachment; filename="report.pdf"'})
+    return HttpResponse(pdf_file, content_type="application/pdf",
+                        headers={"Content-Disposition": 'attachment; filename="report.pdf"'})
