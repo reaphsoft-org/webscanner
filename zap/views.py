@@ -146,3 +146,6 @@ def save_report(request):
 
 
     return JsonResponse({"success": True, "message": "Report saved successfully!"})
+
+def history(request):
+    """"""
