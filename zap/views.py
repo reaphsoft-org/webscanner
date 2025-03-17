@@ -71,7 +71,6 @@ def status(request):
                     passive_results = passive_scan_results(target_url)
                     request.session['passive_results'] = passive_results
             hosting_info = request.session.get("get_hosting_info", hosting_info)
-
     except ProxyError:
         level = 0
         message = ("We were unable to establish a connection while checking the status of your scan. "
