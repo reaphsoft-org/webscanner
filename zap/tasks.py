@@ -17,11 +17,17 @@ from . import keywords
 from .models import CVE
 
 zap = ZAPv2(apikey=settings.ZAP_API_KEY)
+static_file_patterns = [
+    ".*\\.(jpg|jpeg|png|gif|svg|ico|webp)$",
+    ".*\\.(css|woff|woff2|ttf|otf|eot)$" # can add js
+]
+for pattern in static_file_patterns:
+    zap.spider.exclude_from_scan(pattern)
 
 def spider(target_url):
     """"""
     try:
-        scan_id = zap.spider.scan(target_url)
+        scan_id = zap.spider.scan(target_url, subtreeonly=True, maxchildren=15)
         return int(scan_id), ""
     except ProxyError:
         return -1, "Scanner was unable to connect to proxy."
