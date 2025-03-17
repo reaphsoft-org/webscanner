@@ -2,6 +2,6 @@
     <div class="navbar">
         <a href="/" class="nav-link">🏠 Home</a>
         <a href="{% url 'zap:status' %}" class="nav-link">⏳ Check Scan Status</a>
-        <a href="/scan-history/" class="nav-link">📜 Scan History</a>
+        <a href="{% url 'zap:history' %}" class="nav-link">📜 Scan History</a>
        <a href="{% url 'zap:clear' %}" class="nav-link">🗑️ Clear Session</a>
     </div>
