@@ -9,5 +9,6 @@ urlpatterns = [
     path('clear/', views.clear, name="clear"),
     path('cves/<str:cwe>/', views.cves, name="cves"),
     path('save/report/', views.save_report, name="save_report"),
-    path('history/', views.history, name="history")
+    path('history/', views.history, name="history"),
+    path('report/<int:pk>/', views.view_report, name="report"),
 ]

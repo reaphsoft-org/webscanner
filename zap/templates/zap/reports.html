@@ -136,7 +136,7 @@
             <h1>Your Reports</h1>
             <ul class="report-list">
                 {% for report in reports %}
-                    <li>{{ forloop.counter }}. <a href="{{ report.url }}" target="_blank">{{ report.name }}</a></li>
+                    <li>{{ forloop.counter }}. <a href="{% url 'zap:report' report.id %}">{{ report.name }}</a></li>
                 {% endfor %}
             </ul>
 

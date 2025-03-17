@@ -172,7 +172,19 @@ def history(request):
         page_obj = paginator.get_page(page_number)
 
         # Format reports as list of dictionaries
-        reports = [{"url": "#", "name": report.datetime} for report in page_obj]
+        reports = [{"id": report.id, "name": report.datetime} for report in page_obj]
 
     context = { "user_email": email, "reports": reports,  "page_obj": page_obj, }
     return render(request, "zap/reports.html", context)
+
+def view_report(request, pk):
+    """"""
+    email = request.session.get("user_email", "")
+    if not email:
+        return redirect(reverse("zap:history"))  # Redirect to the same page (or another view if needed)
+    # continue use email and pk to get report.
+    try:
+        report = ScanData.objects.get(email=email, pk=pk)
+    except ScanData.DoesNotExist:
+        report = None
+    return render(request, "zap/report.html", {"report": report})
