@@ -561,7 +561,14 @@
         }
 
         function saveReport(email) {
-            fetch(`/zap/save/report/?email=${encodeURIComponent(email)}`)
+            let url = "{% url 'save_report' %}?email=" + encodeURIComponent(email);
+
+            fetch(url, {
+                method: "GET",
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                },
+            })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {

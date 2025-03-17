@@ -8,4 +8,5 @@ urlpatterns = [
     path('scan-status/', views.status, name="status"),
     path('clear/', views.clear, name="clear"),
     path('cves/<str:cwe>/', views.cves, name="cves"),
+    path('save/report/', views.save_report, name="save_report")
 ]
