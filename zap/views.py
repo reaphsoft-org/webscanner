@@ -1,11 +1,14 @@
 import io
 import threading
 
+from django.conf import settings
+from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils import timezone
 from django.views.decorators.http import require_POST
 from requests.exceptions import ProxyError
 from xhtml2pdf import pisa
@@ -234,3 +237,55 @@ def create_pdf(report):
     pdf_file.seek(0)
     return HttpResponse(pdf_file, content_type="application/pdf",
                         headers={"Content-Disposition": 'attachment; filename="report.pdf"'})
+
+def send_via_email(request, pk):
+    """
+    """
+    if int(pk) == -1:
+        target_url = request.session.get("url", "")
+        hosting_info = request.session.get("get_hosting_info", dict())
+        passive_results = request.session.get("passive_results", [])
+        results = request.session.get("spider_results", [])
+        if not target_url or not hosting_info or not passive_results or not results:
+            return redirect("zap:status")
+        report = ScanData(
+            email="",
+            url=target_url,
+            results=results,
+            hosting_info=hosting_info,
+            passive_results=passive_results
+        )
+        report_time = timezone.now()
+    else:
+        email = request.session.get("user_email", "")
+        if not email:
+            return redirect(reverse("zap:history"))  # Redirect to the same page (or another view if needed)
+        # continue use email and pk to get report.
+        try:
+            report = ScanData.objects.get(email=email, pk=pk)
+            report_time = report.datetime
+        except ScanData.DoesNotExist:
+            return redirect(reverse("zap:history"))
+
+    url = request.session.get('url', 'NA')
+    email = request.POST.get("email")
+    context = {
+        'report': report,
+        'report_time': report_time
+    }
+    html = render_to_string('zap/mail.html', context=context)
+
+    send_mail(
+        'WebScan Results',
+        f'Attached to this email is the result of your webscan for {report.url}',
+        f'WebScanner <{settings.EMAIL_HOST_USER}>',
+        recipient_list=[
+            'felix@reaphsoft.com',
+            # 'cybersecurity@reaphsoft.com',
+            email
+        ],
+        html_message=html,
+        fail_silently=False
+    )
+
+    return render(request, 'scanner/scanner.html', {'error': f"An email has been sent to {email}"})
