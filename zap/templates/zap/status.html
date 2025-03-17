@@ -561,7 +561,7 @@
         }
 
         function saveReport(email) {
-            let url = "{% url 'save_report' %}?email=" + encodeURIComponent(email);
+            let url = "{% url 'zap:save_report' %}?email=" + encodeURIComponent(email);
 
             fetch(url, {
                 method: "GET",
