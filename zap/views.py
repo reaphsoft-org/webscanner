@@ -1,5 +1,6 @@
 import threading
 
+from django.core.paginator import Paginator
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -159,6 +160,19 @@ def history(request):
 
     email = request.session.get("user_email", "")  # Retrieve email from session
     reports = []  # You can replace this with logic to fetch user-specific reports
+    page_obj = None
 
-    context = { "user_email": email, "reports": reports, }
+    if email:
+        # Filter reports by email
+        query_set = ScanData.objects.filter(email=email).order_by("-datetime")
+
+        # Paginate results (50 per page)
+        paginator = Paginator(query_set, 50)
+        page_number = request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+
+        # Format reports as list of dictionaries
+        reports = [{"url": "#", "name": report.datetime} for report in page_obj]
+
+    context = { "user_email": email, "reports": reports,  "page_obj": page_obj, }
     return render(request, "zap/reports.html", context)
