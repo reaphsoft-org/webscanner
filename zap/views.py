@@ -2,6 +2,7 @@ import threading
 
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.views.decorators.http import require_POST
 from requests.exceptions import ProxyError
 
@@ -149,5 +150,15 @@ def save_report(request):
 
 def history(request):
     """"""
-    email = request.session.get("user_email", "")
-    return render(request, "zap/reports.html", {'user_email': email})
+
+    if request.method == "POST":
+        email = request.POST.get("email")  # Get email from the form
+        if email:
+            request.session["user_email"] = email  # Store email in session
+            return redirect(reverse("zap:history"))  # Redirect to the same page (or another view if needed)
+
+    email = request.session.get("user_email", "")  # Retrieve email from session
+    reports = []  # You can replace this with logic to fetch user-specific reports
+
+    context = { "user_email": email, "reports": reports, }
+    return render(request, "zap/reports.html", context)
