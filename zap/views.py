@@ -50,7 +50,7 @@ def status(request):
     if scan_id < 0:
         return redirect("zap:home")
     message = ""
-    results = []
+    results = request.session.get("spider_results", [])
     items_left = 0
     passive_results = []
     hosting_info = {
@@ -65,11 +65,13 @@ def status(request):
 
     try:
         level = int(zap.spider.status(scan_id))
-        results = zap.spider.results(scan_id)
         if level >= 100:
+            if not results:
+                results = zap.spider.results(scan_id)
+                request.session["spider_results"] = results
             items_left = int(zap.pscan.records_to_scan)
             if items_left == 0:
-                passive_results = request.session.get("passive_results", None)
+                passive_results = request.session.get("passive_results", [])
                 if not passive_results:
                     passive_results = passive_scan_results(target_url)
                     request.session['passive_results'] = passive_results
@@ -85,7 +87,6 @@ def status(request):
 
 def clear(request):
     """"""
-    # todo fetch user email from session, flush the session, then save the user_email
     user_email = request.session.get("user_email", "")
     scan_id = int(request.session.get("zap_scan_id", -1))
     if scan_id != -1:
