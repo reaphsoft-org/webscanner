@@ -127,14 +127,18 @@ def save_report(request):
     # Store email in session for future requests
     request.session["user_email"] = email
 
+    target_url = request.session.get("url", "")
+    hosting_info = request.session.get("get_hosting_info", {})
+    passive_results = request.session.get("passive_results", [])
+    results = request.session.get("spider_results", [])
+
     # Save the report
-    # ScanData.objects.create(
-    #     email=email,
-    #     url="https://example.com",
-    #     results=["Result 1", "Result 2"],
-    #     hosting_info={"IP": "192.168.1.1", "Host": "ExampleHost"},
-    #     passive_results=[{"risk": "High", "description": "Issue found"}]
-    # )
-    print(email)
+    ScanData.objects.create(
+        email=email,
+        url=target_url,
+        results=results,
+        hosting_info=hosting_info,
+        passive_results=passive_results
+    )
 
     return JsonResponse({"success": True, "message": "Report saved successfully!"})
