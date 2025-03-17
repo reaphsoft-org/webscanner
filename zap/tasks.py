@@ -20,6 +20,8 @@ zap = ZAPv2(apikey=settings.ZAP_API_KEY)
 static_file_patterns = [
     ".*\\.(jpg|jpeg|png|gif|svg|ico|webp)$",
     ".*\\.(css|woff|woff2|ttf|otf|eot)$" # can add js
+    ".*sitemap\\.xml$",                        # Sitemap file
+    ".*robots\\.txt$"
 ]
 for pattern in static_file_patterns:
     zap.spider.exclude_from_scan(pattern)
