@@ -241,7 +241,7 @@ def create_pdf(report):
 def send_via_email(request, pk):
     """
     """
-    if int(pk) == -1:
+    if int(pk) == 0:
         target_url = request.session.get("url", "")
         hosting_info = request.session.get("get_hosting_info", dict())
         passive_results = request.session.get("passive_results", [])
