@@ -98,10 +98,11 @@ def clear(request):
     user_email = request.session.get("user_email", "")
     scan_id = int(request.session.get("zap_scan_id", -1))
     if scan_id != -1:
+        zap.pscan.clear_queue()
         zap.spider.stop(scan_id)
     request.session.flush()
     if user_email:
-        request.session["user_email"] = user_email
+        # request.session["user_email"] = user_email
         request.session.save()
     return render(request, "zap/clear.html")
 
