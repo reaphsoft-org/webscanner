@@ -50,7 +50,7 @@ services:
     command: celery -A web_scanner worker --loglevel=info  # 👈 Starts Celery worker
 
   owasp_zap:
-    image: owasp/zap2docker-stable:latest
+    image: zaproxy/zap-stable
     command: zap.sh -daemon -host 0.0.0.0 -port 8090 -config api.key=${ZAP_API_KEY}
     ports:
       - "8090:8090"
