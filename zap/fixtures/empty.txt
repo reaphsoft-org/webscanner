@@ -1,0 +1,1 @@
+This just holds an empty file so that fixtures would be placed in the dir.
