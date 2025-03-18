@@ -12,6 +12,6 @@ urlpatterns = [
     path('history/', views.history, name="history"),
     path('report/<int:pk>/', views.view_report, name="report"),
     path('report/<int:pk>/download/', views.download_pdf, name="download_report"),
-    path('report/<int:pk>/mail/', views.download_pdf, name="mail_report"),
+    path('report/<int:pk>/mail/', views.send_via_email, name="mail_report"),
     path('download/', views.generate_pdf, name="download"),
 ]

@@ -517,13 +517,13 @@
     </div>
 
     <div id="emailModal" class="modal">
-        <div class="modal-content">
-            <h3>Enter Your Email</h3>
-            <input type="email" id="user-email" placeholder="Enter your email" required>
-            <button onclick="submitEmail()">Submit</button>
-            <button onclick="closeModal()">Cancel</button>
-        </div>
+    <div class="modal-content">
+        <h3>Enter Your Email</h3>
+        <input type="email" id="user-email" placeholder="Enter your email" required>
+        <button id="submit-btn">Submit</button>
+        <button onclick="closeModal()">Cancel</button>
     </div>
+</div>
 
     <script>
         function toggleAccordion(id) {
@@ -533,53 +533,91 @@
         function sendEmail() {}
     </script>
     <script>
-        document.getElementById("save-btn").addEventListener("click", function() {
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("save-btn").addEventListener("click", function () {
             var userEmail = "{{ user_email|default:'' }}";
             if (!userEmail) {
-                openModal();  // Show modal if no email found
+                openModal(submitSaveReport);
             } else {
-                saveReport(userEmail);  // Directly save report
+                saveReport(userEmail);
             }
         });
+    });
 
-        function openModal() {
-            document.getElementById("emailModal").style.display = "block";
+    function openModal(callback) {
+        document.getElementById("emailModal").style.display = "block";
+        document.getElementById("submit-btn").onclick = callback;
+    }
+
+    function closeModal() {
+        document.getElementById("emailModal").style.display = "none";
+    }
+
+    function submitSaveReport() {
+        var email = document.getElementById("user-email").value;
+        if (email) {
+            closeModal();
+            saveReport(email);
+        } else {
+            alert("Please enter a valid email address.");
         }
+    }
 
-        function closeModal() {
-            document.getElementById("emailModal").style.display = "none";
+    function submitSendReport() {
+        var email = document.getElementById("user-email").value;
+        if (email) {
+            closeModal();
+            sendReport(email);
+        } else {
+            alert("Please enter a valid email address.");
         }
+    }
 
-        function submitEmail() {
-            var email = document.getElementById("user-email").value;
-            if (email) {
-                closeModal();
-                saveReport(email);
+    function saveReport(email) {
+        let url = "{% url 'zap:save_report' %}?email=" + encodeURIComponent(email);
+
+        fetch(url, {
+            method: "GET",
+            headers: { "X-Requested-With": "XMLHttpRequest" }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Report saved successfully!");
             } else {
-                alert("Please enter a valid email address.");
+                alert("Error saving report.");
             }
-        }
+        })
+        .catch(error => console.error("Error:", error));
+    }
 
-        function saveReport(email) {
-            let url = "{% url 'zap:save_report' %}?email=" + encodeURIComponent(email);
-
-            fetch(url, {
-                method: "GET",
-                headers: {
-                    "X-Requested-With": "XMLHttpRequest",
-                },
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert("Report saved successfully!");
-                } else {
-                    alert("Error saving report.");
-                }
-            })
-            .catch(error => console.error("Error:", error));
+    function sendEmail() {
+        var userEmail = "{{ user_email|default:'' }}";
+        if (!userEmail) {
+            openModal(submitSendReport);
+        } else {
+            sendReport(userEmail);
         }
-    </script>
+    }
+
+    function sendReport(email) {
+        let url = "{% url 'zap:mail_report' 00 %}?email=" + encodeURIComponent(email);
+
+        fetch(url, {
+            method: "GET",
+            headers: { "X-Requested-With": "XMLHttpRequest" }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Report sent successfully!");
+            } else {
+                alert("Error sending report.");
+            }
+        })
+        .catch(error => console.error("Error:", error));
+    }
+</script>
 
 </body>
 </html>

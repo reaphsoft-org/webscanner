@@ -239,15 +239,22 @@ def create_pdf(report):
                         headers={"Content-Disposition": 'attachment; filename="report.pdf"'})
 
 def send_via_email(request, pk):
-    """
-    """
+    """"""
+    email = request.GET.get("email")
+
+    if not email:
+        email = request.session.get("user_email")
+
+    if not email:
+        return JsonResponse({"success": False, "error": "Email is required"}, status=400)
+
     if int(pk) == 0:
         target_url = request.session.get("url", "")
         hosting_info = request.session.get("get_hosting_info", dict())
         passive_results = request.session.get("passive_results", [])
         results = request.session.get("spider_results", [])
         if not target_url or not hosting_info or not passive_results or not results:
-            return redirect("zap:status")
+            return JsonResponse({"success": False, "error": "No scan data was found for this session. Please refresh the page."}, status=400)
         report = ScanData(
             email="",
             url=target_url,
@@ -257,18 +264,13 @@ def send_via_email(request, pk):
         )
         report_time = timezone.now()
     else:
-        email = request.session.get("user_email", "")
-        if not email:
-            return redirect(reverse("zap:history"))  # Redirect to the same page (or another view if needed)
-        # continue use email and pk to get report.
         try:
             report = ScanData.objects.get(email=email, pk=pk)
             report_time = report.datetime
         except ScanData.DoesNotExist:
-            return redirect(reverse("zap:history"))
+            return JsonResponse({"success": False, "error": "No scan data was found. Please refresh the page."}, status=400)
 
-    url = request.session.get('url', 'NA')
-    email = request.POST.get("email")
+    email = request.GET.get("email")
     context = {
         'report': report,
         'report_time': report_time
@@ -288,4 +290,6 @@ def send_via_email(request, pk):
         fail_silently=False
     )
 
-    return render(request, 'scanner/scanner.html', {'error': f"An email has been sent to {email}"})
+    request.session["user_email"] = email
+
+    return JsonResponse({"success": True, "message": f"An email has been sent to {email}"})
