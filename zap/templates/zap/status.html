@@ -645,7 +645,7 @@
     }
 
     function sendReport(email) {
-        let url = "{% url 'zap:mail_report' 00 %}?email=" + encodeURIComponent(email);
+        let url = "{% url 'zap:mail_report' 0 %}?email=" + encodeURIComponent(email);
 
         document.getElementById("loadingModal").style.display = "block";
 
