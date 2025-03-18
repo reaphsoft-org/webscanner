@@ -246,7 +246,7 @@ def send_via_email(request, pk):
         email = request.session.get("user_email")
 
     if not email:
-        return JsonResponse({"success": False, "error": "Email is required"}, status=400)
+        return JsonResponse({"success": False, "error": "Email is required. Try refreshing the page."}, status=400)
 
     if int(pk) == 0:
         target_url = request.session.get("url", "")
