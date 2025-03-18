@@ -16,7 +16,9 @@ from zapv2 import ZAPv2
 from . import keywords
 from .models import CVE
 
-zap = ZAPv2(apikey=settings.ZAP_API_KEY)
+zap = ZAPv2(
+    apikey=settings.ZAP_API_KEY, proxies={'http': 'http://owasp_zap:8090', 'https': 'http://owasp_zap:8090'}
+)
 static_file_patterns = [
     ".*\\.(jpg|jpeg|png|gif|svg|ico|webp)$",
     ".*\\.(css|woff|woff2|ttf|otf|eot)$" # can add js

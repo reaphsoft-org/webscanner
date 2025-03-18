@@ -8,6 +8,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      owasp_zap:
+        condition: service_started
     env_file:
       - .env
     volumes:
@@ -16,6 +18,7 @@ services:
       sh -c "
       python manage.py makemigrations &&
       python manage.py migrate &&
+      python manage.py loaddata cve.json &&
       python manage.py runserver 0.0.0.0:8000
       "
 
@@ -24,7 +27,7 @@ services:
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}   
+      - POSTGRES_DB=${POSTGRES_DB}
     ports:
       - "5432:5432"
     healthcheck:
@@ -32,6 +35,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
   celery_worker:
     build: .
     depends_on:
@@ -44,3 +48,9 @@ services:
     volumes:
       - .:/app
     command: celery -A web_scanner worker --loglevel=info  # 👈 Starts Celery worker
+
+  owasp_zap:
+    image: owasp/zap2docker-stable
+    command: zap.sh -daemon -host 0.0.0.0 -port 8090 -config api.key=${ZAP_API_KEY}
+    ports:
+      - "8090:8090"
