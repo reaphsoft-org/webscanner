@@ -28,6 +28,18 @@ python -m spacy download en_core_web_md
 `en_core_web_md` is about 34MB
 `en_core_web_lg` is about 400MB
 
+### Issues and Solutions
+#### Docker showing ContainerConfig Error
+Down the container and rebuild it.
+```
+docker-compose down
+docker-compose up --build
+```
+
+#### Zap not connecting
+Ensure that the ZAP_API_KEY is set, also ensure that the configuration allows connection from any host. See the attached docker-composer.yml for a sample and also see
+this [link](https://www.zaproxy.org/docs/docker/about/#zap-headless)
+
 ## References
 1. [NIST NVD](https://nvd.nist.gov/developers/vulnerabilities)
 2. [NVD Rate Limits](https://nvd.nist.gov/developers/start-here)

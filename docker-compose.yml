@@ -9,7 +9,7 @@ services:
       db:
         condition: service_healthy
       owasp_zap:
-        condition: service_started
+        condition: service_healthy
     env_file:
       - .env
     volumes:
@@ -51,8 +51,13 @@ services:
 
   owasp_zap:
     image: zaproxy/zap-stable
-    command: zap.sh -daemon -host 0.0.0.0 -port 8090 -config api.key=${ZAP_API_KEY}
+    command: zap.sh -daemon -host 0.0.0.0 -port 8090 -config api.key=${ZAP_API_KEY} -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true
     ports:
       - "8090:8090"
     env_file:
       - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8090"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
