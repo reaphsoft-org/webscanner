@@ -39,9 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',   
     'scanner.apps.ScannerConfig',
-    'django_celery_results',
-    'rest_framework',
-    'vulnerabilities',
     'zap'
 ]
 
@@ -95,7 +92,6 @@ DATABASES = {
     }
 }
 
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -113,8 +109,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -145,14 +139,6 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', '')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', '')
 
 EMAIL_USE_TLS = True
-
-CELERY_BROKER_URL = f"sqla+postgresql://{DATABASE_USERNAME}:{DATABASE_PASSWORD}@{DATABASE_HOST}:5432/{DATABASE_NAME}"
-CELERY_ACCEPT_CONTENT = ["json"]
-CELERY_TASK_SERIALIZER = "json"
-
-CELERY_RESULT_BACKEND = "django-db"
-# CELERY_BROKER_CONNECTION_RETRY = True
-CELERY_BROKER_CONNECTION_MAX_RETRIES = 2
 
 ZAP_API_KEY = os.getenv('ZAP_API_KEY', '')
 
