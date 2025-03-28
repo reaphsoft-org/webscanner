@@ -22,7 +22,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
     path('scanner/', include("scanner.urls")),
-    path('api/', include('vulnerabilities.urls')),
     path('zap/', include('zap.urls')),
 ]
 

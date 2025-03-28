@@ -37,6 +37,7 @@ python_whois==0.9.5
 requests==2.32.3
 spacy==3.8.4
 xhtml2pdf==0.2.17
+psycopg2==2.9.10
 ```
 
 ### Issues and Solutions
