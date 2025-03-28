@@ -3,9 +3,8 @@
 import csv
 import requests
 from .crawler import WebCrawler
-from .tasks import run_crawler, run_fuzzy
+from .tasks import run_crawler, run_fuzzy, AsyncResult
 from bs4 import BeautifulSoup
-from celery.result import AsyncResult
 from django.conf import settings
 from django.core.mail import send_mail
 from django.http import HttpResponse, JsonResponse
