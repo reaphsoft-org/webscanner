@@ -28,6 +28,17 @@ python -m spacy download en_core_web_md
 `en_core_web_md` is about 34MB
 `en_core_web_lg` is about 400MB
 
+### Bare Dependencies
+```
+beautifulsoup4==4.13.3
+Django==4.2.6
+ipinfo==5.1.1
+python_whois==0.9.5
+requests==2.32.3
+spacy==3.8.4
+xhtml2pdf==0.2.17
+```
+
 ### Issues and Solutions
 #### Docker showing ContainerConfig Error
 Down the container and rebuild it.
