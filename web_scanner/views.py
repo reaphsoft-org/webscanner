@@ -1,7 +1,11 @@
+import threading
+
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
+
+from fetch_cve_data import save_cve_data
 
 
 # ----------------------------------------------------------------------
@@ -80,14 +84,28 @@ def download_cve_data(request):
             return redirect("download_cve")
 
         # Here you can implement logic to process CVE data
-        messages.success(request, f"CVE data download started from index {start_index}.")
-        return redirect("download_cve")
+        running = request.session.get('download_cve_started', False)
+        if running:
+            return redirect("download_status")
+
+        request.session['download_cve_started'] = True
+        request.session['download_cve_messages'] = [f"CVE data download started from index {start_index}."]
+
+        thread = threading.Thread(target=save_cve_data, args=(start_index, request))
+        thread.start()
+
+        request.session.save()
+
+        return redirect("download_status")
 
     return render(request, 'a/download_cve.html')
 
 
 # ----------------------------------------------------------------------
 def download_status(request):
-    """"""
+    """
+    TODO check if `download_cve_stopped` has been set,
+     if yes, you can delete `download_cve_started`
+    """
     if request.session.get('password', None) is None:
         return redirect("login")

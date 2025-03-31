@@ -70,6 +70,8 @@ def save_cve_data(start_index = 0, request = None):
             request.session['download_cve_messages'] = messages
         cve_items, last_request_time = fetch_cve_data(start_index, results_per_page, last_request_time, request)
         if not cve_items:
+            if request is not None:
+                request.session['download_cve_stopped'] = True
             break  # Stop if there are no more results
 
         for item in cve_items:
