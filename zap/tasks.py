@@ -36,7 +36,7 @@ def spider(target_url):
     try:
         scan_id = zap.spider.scan(target_url, subtreeonly=True, maxchildren=30)
         return int(scan_id), ""
-    except ProxyError:
+    except (ProxyError, AttributeError):
         return -1, "Scanner was unable to connect to proxy."
 
 
@@ -55,7 +55,7 @@ def ajax_spider(target_url):
     try:
         scan_id = zap.ajaxSpider.scan(target_url)
         return int(scan_id), ""
-    except ProxyError:
+    except (ProxyError, AttributeError):
         return -1, "Scanner was unable to connect to proxy."
 
 
