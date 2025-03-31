@@ -15,7 +15,7 @@ NVD_API_URL = "https://services.nvd.nist.gov/rest/json/cves/2.0"
 API_KEY = os.getenv("NVD_API_KEY")
 
 
-def fetch_cve_data(start_index=0, results_per_page=2000, last_request_time=None):
+def fetch_cve_data(start_index=0, results_per_page=2000, last_request_time=None, request=None):
     headers = {"apiKey": API_KEY}  # API key in headers
     params = {
         "startIndex": start_index,
@@ -31,26 +31,44 @@ def fetch_cve_data(start_index=0, results_per_page=2000, last_request_time=None)
     response = requests.get(NVD_API_URL, params=params, headers=headers)
 
     if response.status_code != 200:
-        print(f"Error fetching data at start_index {start_index}: {response.status_code}")
+        message = f"Error fetching data at start_index {start_index}: {response.status_code}"
+        if request is None:
+            print(message)
+        else:
+            messages = request.session.get('download_cve_messages', [])
+            messages.append(message)
+            request.session['download_cve_messages'] = messages
         return [], start_time
 
     response_json = response.json()
     get_start_index = response_json.get("startIndex", 0)
     get_total_results = response_json.get("totalResults", 0)
     if get_start_index > get_total_results:
-        print(f"Response Start Index: {get_start_index}, Response Total Results: {get_total_results}, Start Index: {start_index}")
+        message = f"Response Start Index: {get_start_index}, Response Total Results: {get_total_results}, Start Index: {start_index}"
+        if request is None:
+            print(message)
+        else:
+            messages = request.session.get('download_cve_messages', [])
+            messages.append(message)
+            request.session['download_cve_messages'] = messages
     return response_json.get("vulnerabilities", []), start_time
 
 
-def save_cve_data():
-    start_index = 150000 # continue from 48000, network has issues at that time.
+def save_cve_data(start_index = 0, request = None):
+    start_index = start_index
     results_per_page = 2000
     cve_objects = []
     last_request_time = None
 
     while True:
-        print(f"Fetching at Start Index: {start_index} with API Key: {API_KEY}")
-        cve_items, last_request_time = fetch_cve_data(start_index, results_per_page, last_request_time)
+        message = f"Fetching at Start Index: {start_index} with API Key: {API_KEY}"
+        if request is None:
+            print(message)
+        else:
+            messages = request.session.get('download_cve_messages', [])
+            messages.append(message)
+            request.session['download_cve_messages'] = messages
+        cve_items, last_request_time = fetch_cve_data(start_index, results_per_page, last_request_time, request)
         if not cve_items:
             break  # Stop if there are no more results
 
