@@ -66,6 +66,24 @@ def download_cve_data(request):
     """"""
     if request.session.get('password', None) is None:
         return redirect("login")
+    if request.method == "POST":
+        start_index = request.POST.get("start_index", 0)
+
+        # Validate input
+        try:
+            start_index = int(start_index)
+            if start_index < 0:
+                messages.error(request, "Start index cannot be negative.")
+                return redirect("download_cve")
+        except ValueError:
+            messages.error(request, "Invalid input. Please enter a valid number.")
+            return redirect("download_cve")
+
+        # Here you can implement logic to process CVE data
+        messages.success(request, f"CVE data download started from index {start_index}.")
+        return redirect("download_cve")
+
+    return render(request, 'a/download_cve.html')
 
 
 # ----------------------------------------------------------------------
