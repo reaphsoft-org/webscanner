@@ -91,8 +91,8 @@ def download_cve_data(request):
         request.session['download_cve_started'] = True
         request.session['download_cve_messages'] = [f"CVE data download started from index {start_index}."]
 
-        thread = threading.Thread(target=save_cve_data, args=(start_index, request))
-        thread.start()
+        # thread = threading.Thread(target=save_cve_data, args=(start_index, request))
+        # thread.start()
 
         request.session.save()
 
@@ -109,3 +109,11 @@ def download_status(request):
     """
     if request.session.get('password', None) is None:
         return redirect("login")
+
+    running = request.session.get('download_cve_started', False)
+    if not running:
+        return redirect("download_cve")
+
+    download_messages = request.session.get('download_cve_messages', [])
+
+    return render(request, 'a/download_status.html', {'messages': download_messages})
