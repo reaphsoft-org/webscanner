@@ -1,3 +1,4 @@
+from django.contrib import admin
 from django.db import models
 
 # Create your models here.
@@ -67,3 +68,7 @@ class ScanData(models.Model):
 
     def __str__(self):
         return f"ScanData({self.email}, {self.url}, {self.datetime})"
+
+
+admin.site.register(CVE)
+admin.site.register(ScanData)
