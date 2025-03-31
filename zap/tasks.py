@@ -16,17 +16,20 @@ from zapv2 import ZAPv2
 from . import keywords
 from .models import CVE
 
-zap = ZAPv2(
-    apikey=settings.ZAP_API_KEY, proxies={'http': 'http://owasp_zap:8090', 'https': 'http://owasp_zap:8090'}
-)
-static_file_patterns = [
-    ".*\\.(jpg|jpeg|png|gif|svg|ico|webp)$",
-    ".*\\.(css|woff|woff2|ttf|otf|eot)$" # can add js
-    ".*sitemap\\.xml$",                        # Sitemap file
-    ".*robots\\.txt$"
-]
-for pattern in static_file_patterns:
-    zap.spider.exclude_from_scan(pattern)
+try:
+    zap = ZAPv2(
+        apikey=settings.ZAP_API_KEY, proxies={'http': 'http://owasp_zap:8090', 'https': 'http://owasp_zap:8090'}
+    )
+    static_file_patterns = [
+        ".*\\.(jpg|jpeg|png|gif|svg|ico|webp)$",
+        ".*\\.(css|woff|woff2|ttf|otf|eot)$" # can add js
+        ".*sitemap\\.xml$",                        # Sitemap file
+        ".*robots\\.txt$"
+    ]
+    for pattern in static_file_patterns:
+        zap.spider.exclude_from_scan(pattern)
+except:
+    zap = None
 
 def spider(target_url):
     """"""
