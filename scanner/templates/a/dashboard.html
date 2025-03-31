@@ -4,58 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel</title>
+
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Custom Styling -->
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
-            text-align: center;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
+            background-color: #f5f5f5;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+            margin-top: 50px;
         }
 
-        h1 {
-            margin-bottom: 20px;
+        .card {
+            padding: 20px;
+            text-align: center;
         }
 
-        .link-button {
-            display: block;
-            width: 220px;
-            padding: 15px;
-            margin: 10px auto;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-            background: #ff9800;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
+        .card-title {
+            font-size: 1.8rem;
         }
 
-        .link-button:hover {
-            background: #e68900;
-            transform: scale(1.05);
+        .btn-custom {
+            width: 100%;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Admin Panel</h1>
-        <a href="{% url 'create_admin' %}" class="link-button">Create Admin</a>
-        <a href="{% url 'download_cve' %}" class="link-button">Download CVE Data</a>
-        <a href="{% url 'download_status' %}" class="link-button">Download Status</a>
+        <div class="row">
+            <div class="col s12 m8 offset-m2">
+                <div class="card">
+                    <span class="card-title">Admin Panel</span>
+                    <div class="card-content">
+                        <a href="{% url 'create_admin' %}" class="btn waves-effect waves-light orange btn-custom">Create Admin</a>
+                        <a href="{% url 'download_cve' %}" class="btn waves-effect waves-light blue btn-custom">Download CVE Data</a>
+                        <a href="{% url 'download_status' %}" class="btn waves-effect waves-light green btn-custom">Download Status</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
 </body>
 </html>
