@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .link-button {
+            display: block;
+            width: 220px;
+            padding: 15px;
+            margin: 10px auto;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            background: #ff9800;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .link-button:hover {
+            background: #e68900;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Admin Panel</h1>
+        <a href="{% url 'create_admin' %}" class="link-button">Create Admin</a>
+        <a href="" class="link-button">Download CVE Data</a>
+        <a href="" class="link-button">Download Status</a>
+    </div>
+
+</body>
+</html>

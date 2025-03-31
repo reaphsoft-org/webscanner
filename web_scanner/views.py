@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 
@@ -29,4 +30,32 @@ def dashboard(request):
     """"""
     if request.session.get('password', None) is None:
         return redirect("login")
+
     return render(request, "a/dashboard.html")
+
+
+# ----------------------------------------------------------------------
+def register(request):
+    """"""
+    if request.session.get('password', None) is None:
+        return redirect("login")
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        if User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists.")
+            return redirect('create_admin')
+
+        if User.objects.filter(email=email).exists():
+            messages.error(request, "Email is already registered.")
+            return redirect('create_admin')
+
+        # Create superuser (admin)
+        user = User.objects.create_superuser(username=username, email=email, password=password)
+        messages.success(request, f"Admin user '{username}' created successfully!")
+
+        return redirect('/admin/')
+
+    return render(request, "a/create_admin.html")

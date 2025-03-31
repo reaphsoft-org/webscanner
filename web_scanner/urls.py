@@ -26,5 +26,6 @@ urlpatterns = [
     path('zap/', include('zap.urls')),
     path('a/login/', admin_views.login, name='login'),
     path('a/dashboard/', admin_views.dashboard, name='dashboard'),
+    path('a/create/', admin_views.register, name='create_admin'),
 ]
 
