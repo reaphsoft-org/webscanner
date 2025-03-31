@@ -1,8 +1,8 @@
 import os
 import time
-import requests
+
 import django
-from django.core.paginator import Paginator
+import requests
 from django.utils import timezone
 from django.utils.dateparse import parse_datetime
 
@@ -10,7 +10,6 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "web_scanner.settings")
 django.setup()
 
 from zap.models import CVE
-from zap.tasks import get_cves_by_cwe
 
 NVD_API_URL = "https://services.nvd.nist.gov/rest/json/cves/2.0"
 API_KEY = os.getenv("NVD_API_KEY")

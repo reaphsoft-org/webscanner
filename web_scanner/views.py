@@ -59,3 +59,17 @@ def register(request):
         return redirect('/admin/')
 
     return render(request, "a/create_admin.html")
+
+
+# ----------------------------------------------------------------------
+def download_cve_data(request):
+    """"""
+    if request.session.get('password', None) is None:
+        return redirect("login")
+
+
+# ----------------------------------------------------------------------
+def download_status(request):
+    """"""
+    if request.session.get('password', None) is None:
+        return redirect("login")

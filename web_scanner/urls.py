@@ -27,5 +27,7 @@ urlpatterns = [
     path('a/login/', admin_views.login, name='login'),
     path('a/dashboard/', admin_views.dashboard, name='dashboard'),
     path('a/create/', admin_views.register, name='create_admin'),
+    path('a/download/', admin_views.download_cve_data, name='download_cve'),
+    path('a/download/status/', admin_views.download_status, name='download_status'),
 ]
 
