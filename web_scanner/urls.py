@@ -17,11 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from scanner import views
+from . import views as admin_views
 
 urlpatterns = [
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
     path('scanner/', include("scanner.urls")),
     path('zap/', include('zap.urls')),
+    path('a/login/', admin_views.login, name='login'),
 ]
 
