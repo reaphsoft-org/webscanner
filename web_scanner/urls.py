@@ -25,5 +25,6 @@ urlpatterns = [
     path('scanner/', include("scanner.urls")),
     path('zap/', include('zap.urls')),
     path('a/login/', admin_views.login, name='login'),
+    path('a/dashboard/', admin_views.dashboard, name='dashboard'),
 ]
 

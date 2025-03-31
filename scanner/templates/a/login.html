@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Login</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle, #121212, #1a1a1a);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            text-align: center;
+            backdrop-filter: blur(10px);
+            width: 350px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        /* Input Fields */
+        .input-box {
+            position: relative;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            outline: none;
+            transition: 0.3s ease;
+        }
+
+        input:focus {
+            box-shadow: 0 0 10px cyan;
+        }
+
+        /* Show Password Icon */
+        .toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: white;
+        }
+
+        /* Button */
+        button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            background: linear-gradient(45deg, cyan, blue);
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: linear-gradient(45deg, blue, cyan);
+            box-shadow: 0 0 15px cyan;
+        }
+    </style>
+    <style>
+        .messages {
+            margin: 20px auto;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .alert {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .success {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .error {
+            background-color: #FF5733;
+            color: white;
+        }
+
+        .warning {
+            background-color: #FFC107;
+            color: black;
+        }
+
+        .info {
+            background-color: #2196F3;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Login</h2>
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="input-box">
+                <input type="password" id="password" name="password" placeholder="••••••••" required>
+                <span class="toggle" onclick="togglePassword()">👁️</span>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+
+    <script>
+        function togglePassword() {
+            let passwordField = document.getElementById("password");
+            passwordField.type = passwordField.type === "password" ? "text" : "password";
+        }
+    </script>
+
+</body>
+</html>
