@@ -91,8 +91,8 @@ def download_cve_data(request):
         request.session['download_cve_started'] = True
         request.session['download_cve_messages'] = [f"CVE data download started from index {start_index}."]
 
-        # thread = threading.Thread(target=save_cve_data, args=(start_index, request))
-        # thread.start()
+        thread = threading.Thread(target=save_cve_data, args=(start_index, request))
+        thread.start()
 
         request.session.save()
 
@@ -103,16 +103,12 @@ def download_cve_data(request):
 
 # ----------------------------------------------------------------------
 def download_status(request):
-    """
-    TODO check if `download_cve_stopped` has been set,
-     if yes, you can delete `download_cve_started`
-    """
+    """"""
     if request.session.get('password', None) is None:
         return redirect("login")
 
-    running = request.session.get('download_cve_started', False)
-    if not running:
-        return redirect("download_cve")
+    if request.session.get('download_cve_stopped', False):
+        del request.session['download_cve_started']
 
     download_messages = request.session.get('download_cve_messages', [])
 
