@@ -48,6 +48,9 @@ def register(request):
         email = request.POST.get('email')
         password = request.POST.get('password')
 
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+
         if User.objects.filter(username=username).exists():
             messages.error(request, "Username already exists.")
             return redirect('create_admin')
@@ -57,7 +60,8 @@ def register(request):
             return redirect('create_admin')
 
         # Create superuser (admin)
-        user = User.objects.create_superuser(username=username, email=email, password=password)
+        user = User.objects.create_superuser(username=username, email=email, password=password,
+                                             first_name=first_name, last_name=last_name)
         messages.success(request, f"Admin user '{username}' created successfully!")
 
         return redirect('/admin/')
