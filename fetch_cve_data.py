@@ -57,7 +57,7 @@ def save_cve_data(start_index = 0, progress: Progress | None = None):
     last_request_time = None
 
     while True:
-        message = f"Fetching at Start Index: {start_index} with API Key: {API_KEY}"
+        message = f"Fetching at Start Index: {start_index} with API Key: {str(API_KEY)[:4]}"
         if progress is None:
             print(message)
         else:
