@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 from fetch_cve_data import save_cve_data
+from zap.models import Progress
 
 
 # ----------------------------------------------------------------------
@@ -95,7 +96,10 @@ def download_cve_data(request):
         request.session['download_cve_started'] = True
         request.session['download_cve_messages'] = [f"CVE data download started from index {start_index}."]
 
-        thread = threading.Thread(target=save_cve_data, args=(start_index, request))
+        progress = Progress.objects.create()
+        request.session['progress_id'] = progress.id
+
+        thread = threading.Thread(target=save_cve_data, args=(start_index, progress))
         thread.start()
 
         request.session.save()
@@ -114,6 +118,12 @@ def download_status(request):
     if request.session.get('download_cve_stopped', False):
         del request.session['download_cve_started']
 
-    download_messages = request.session.get('download_cve_messages', [])
+    try:
+        progress = Progress.objects.get(id=request.session['progress_id'])
+        progress_messages = progress.messages
+        if progress.finished:
+            del request.session['download_cve_started']
+    except Progress.DoesNotExist:
+        progress_messages = []
 
-    return render(request, 'a/download_status.html', {'messages': download_messages})
+    return render(request, 'a/download_status.html', {'messages': progress_messages})

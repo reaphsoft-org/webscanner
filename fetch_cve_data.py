@@ -9,13 +9,13 @@ from django.utils.dateparse import parse_datetime
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "web_scanner.settings")
 django.setup()
 
-from zap.models import CVE
+from zap.models import CVE, Progress
 
 NVD_API_URL = "https://services.nvd.nist.gov/rest/json/cves/2.0"
 API_KEY = os.getenv("NVD_API_KEY")
 
 
-def fetch_cve_data(start_index=0, results_per_page=2000, last_request_time=None, request=None):
+def fetch_cve_data(start_index=0, results_per_page=2000, last_request_time=None, progress: Progress|None=None):
     headers = {"apiKey": API_KEY}  # API key in headers
     params = {
         "startIndex": start_index,
@@ -32,12 +32,10 @@ def fetch_cve_data(start_index=0, results_per_page=2000, last_request_time=None,
 
     if response.status_code != 200:
         message = f"Error fetching data at start_index {start_index}: {response.status_code}"
-        if request is None:
+        if progress is None:
             print(message)
         else:
-            messages = request.session.get('download_cve_messages', [])
-            messages.append(message)
-            request.session['download_cve_messages'] = messages
+            progress.add_message(message)
         return [], start_time
 
     response_json = response.json()
@@ -45,16 +43,14 @@ def fetch_cve_data(start_index=0, results_per_page=2000, last_request_time=None,
     get_total_results = response_json.get("totalResults", 0)
     if get_start_index > get_total_results:
         message = f"Response Start Index: {get_start_index}, Response Total Results: {get_total_results}, Start Index: {start_index}"
-        if request is None:
+        if progress is None:
             print(message)
         else:
-            messages = request.session.get('download_cve_messages', [])
-            messages.append(message)
-            request.session['download_cve_messages'] = messages
+            progress.add_message(message)
     return response_json.get("vulnerabilities", []), start_time
 
 
-def save_cve_data(start_index = 0, request = None):
+def save_cve_data(start_index = 0, progress: Progress | None = None):
     start_index = start_index
     results_per_page = 2000
     cve_objects = []
@@ -62,16 +58,14 @@ def save_cve_data(start_index = 0, request = None):
 
     while True:
         message = f"Fetching at Start Index: {start_index} with API Key: {API_KEY}"
-        if request is None:
+        if progress is None:
             print(message)
         else:
-            messages = request.session.get('download_cve_messages', [])
-            messages.append(message)
-            request.session['download_cve_messages'] = messages
-        cve_items, last_request_time = fetch_cve_data(start_index, results_per_page, last_request_time, request)
+            progress.add_message(message)
+        cve_items, last_request_time = fetch_cve_data(start_index, results_per_page, last_request_time, progress)
         if not cve_items:
-            if request is not None:
-                request.session['download_cve_stopped'] = True
+            if progress is not None:
+                progress.set_finished()
             break  # Stop if there are no more results
 
         for item in cve_items:

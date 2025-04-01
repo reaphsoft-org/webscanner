@@ -70,5 +70,26 @@ class ScanData(models.Model):
         return f"ScanData({self.email}, {self.url}, {self.datetime})"
 
 
+from django.db import models
+
+
+class Progress(models.Model):
+    id = models.AutoField(primary_key=True)  # Auto-incrementing ID
+    messages = models.JSONField(default=list)  # Stores a list of progress messages
+    timestamp = models.DateTimeField(auto_now_add=True)  # Records the creation time
+    finished = models.BooleanField(default=False)
+
+    def add_message(self, message: str):
+        """Append a message to the messages list and save the model."""
+        self.messages.append(message)
+        self.save()
+
+    def set_finished(self):
+        self.finished = True
+        self.save()
+
+    def __str__(self):
+        return f"Progress(id={self.id}, messages={len(self.messages)} messages)"
+
 admin.site.register(CVE)
 admin.site.register(ScanData)
