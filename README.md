@@ -53,6 +53,86 @@ docker-compose up --build
 Ensure that the ZAP_API_KEY is set, also ensure that the configuration allows connection from any host. See the attached docker-composer.yml for a sample and also see
 this [link](https://www.zaproxy.org/docs/docker/about/#zap-headless)
 
+### Running Docker Image
+The docker image for this project is available at [link](https://hub.docker.com/repository/docker/osujir/webscanner)
+
+To run the image, create a `docker-compose.yml` file with the contents below.
+```
+version: '3.9'
+
+services:
+  web:
+    image: osujir/webscanner:latest
+    # build: .
+    ports:
+      - "80:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+      owasp_zap:
+        condition: service_healthy
+    env_file:
+      - .env
+    #volumes:
+    #  - .:/app
+    command: >
+      sh -c "
+      python manage.py makemigrations &&
+      python manage.py migrate &&
+      python manage.py runserver 0.0.0.0:8000
+      "
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  owasp_zap:
+    image: zaproxy/zap-stable
+    command: zap.sh -daemon -host 0.0.0.0 -port 8090 -config api.key=${ZAP_API_KEY} -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true -config spider.maxChildren=30 -addoninstall technology-detection
+    ports:
+      - "8090:8090"
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8090"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+```
+
+Then create a `.env` file in the same directory as the `docker-compose.yml`
+
+The `.env` file should have the following fields:
+```
+POSTGRES_USER="set_to_any_name"
+POSTGRES_PASSWORD="set-to-any-character"
+POSTGRES_DB="set_to_any_name"
+DATABASE_HOST="db"
+
+ZAP_API_KEY="set-to-any-set-of-characters"
+IP_INFO_KEY="set-or-contact-repo-owners"
+EMAIL_HOST_USER="set-to-your-mail-host-or-contact-repository-owners"
+EMAIL_HOST_PASSWORD="set-to-your-mail-password-or-contact-repository-owners"
+DJANGO_HOST="Set your cloud host ip here or use `localhost` if running locally"
+NVD_API_KEY="Set-to-your-NVD-API-KEY-or-contact-repo-admins"
+```
+
+Then in the same directory, run
+```
+docker-compose up --build
+```
+
+And access the app in the specified host. 
+
 ## References
 1. [NIST NVD](https://nvd.nist.gov/developers/vulnerabilities)
 2. [NVD Rate Limits](https://nvd.nist.gov/developers/start-here)
