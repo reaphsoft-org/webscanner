@@ -94,6 +94,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
 
   owasp_zap:
     image: zaproxy/zap-stable
@@ -107,6 +109,9 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+      
+volumes:
+  postgres_data:
 ```
 
 Then create a `.env` file in the same directory as the `docker-compose.yml`
